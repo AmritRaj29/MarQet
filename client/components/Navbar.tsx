@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/store/useAuthStore";
+import { useCartStore } from "@/store/useCartStore";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search, ShoppingBag, User, LogOut, LayoutDashboard } from "lucide-react";
@@ -9,6 +10,7 @@ import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuthStore();
+  const { toggleCart, items } = useCartStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -42,9 +44,13 @@ export default function Navbar() {
           />
         </div>
         
-        <button className="p-2 hover:bg-secondary rounded-full transition-colors relative">
+        <button onClick={toggleCart} className="p-2 hover:bg-secondary rounded-full transition-colors relative">
           <ShoppingBag className="w-5 h-5" />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
+          {mounted && items.length > 0 && (
+            <span className="absolute top-0 right-0 w-4 h-4 bg-primary text-[10px] font-bold flex items-center justify-center rounded-full">
+              {items.length}
+            </span>
+          )}
         </button>
 
         {mounted && isAuthenticated ? (
@@ -56,7 +62,7 @@ export default function Navbar() {
               </Link>
             )}
             <div className="text-sm text-muted-foreground hidden md:block px-2 border-l border-white/10">
-              {user?.name.split(' ')[0]}
+              {user?.name?.split(' ')[0]}
             </div>
             <button onClick={() => logout()} className="p-2 hover:bg-secondary rounded-full transition-colors" title="Logout">
               <LogOut className="w-5 h-5 text-destructive" />

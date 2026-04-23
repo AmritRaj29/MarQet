@@ -6,12 +6,14 @@ import { Search, ShoppingBag, Star, Filter } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useGeolocation } from "@/hooks/useGeolocation";
+import { useCartStore } from "@/store/useCartStore";
 
 export default function ExploreProducts() {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState("");
   const { location, isLoading: locationLoading } = useGeolocation();
+  const { addItem } = useCartStore();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -32,7 +34,6 @@ export default function ExploreProducts() {
     };
     
     if (!locationLoading) {
-      // Simple debounce
       const timeoutId = setTimeout(() => {
         fetchProducts();
       }, 300);
@@ -111,7 +112,21 @@ export default function ExploreProducts() {
                   
                   <div className="mt-auto flex items-center justify-between">
                     <span className="text-lg font-bold">${product.price.toFixed(2)}</span>
-                    <button className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-white transition-colors">
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        addItem({
+                          _id: product._id,
+                          name: product.name,
+                          price: product.price,
+                          image: product.images?.[0] || "",
+                          shopId: product.shopId?._id || "",
+                          shopName: product.shopId?.shopName || "Unknown Shop",
+                        });
+                      }}
+                      className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-white transition-colors"
+                    >
                       <ShoppingBag className="w-4 h-4" />
                     </button>
                   </div>
