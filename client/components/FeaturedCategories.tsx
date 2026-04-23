@@ -16,33 +16,45 @@ const categories = [
 
 export default function FeaturedCategories() {
   return (
-    <section className="py-24 px-6 max-w-7xl mx-auto relative z-10">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-        <div className="max-w-2xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Explore Categories</h2>
-          <p className="text-muted-foreground">Find exactly what you are looking for in your local neighborhood. From fresh food to freelance services, we have it all.</p>
-        </div>
-        <button className="mt-4 md:mt-0 text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
-          View All Categories &rarr;
-        </button>
+    <section className="py-32 px-6 max-w-7xl mx-auto relative z-10">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-16">
+        <motion.div 
+          className="max-w-2xl"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">Curated Categories</h2>
+          <p className="text-xl text-muted-foreground font-light">Explore a world of local commerce, perfectly categorized for your convenience.</p>
+        </motion.div>
+        <motion.button 
+          className="mt-6 md:mt-0 px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-colors text-sm font-medium"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          View Directory &rarr;
+        </motion.button>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {categories.map((cat, index) => (
           <motion.div
             key={cat.name}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
             className="group relative cursor-pointer"
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-white/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="h-full flex flex-col items-center justify-center p-8 rounded-2xl border border-white/5 bg-card hover:border-primary/50 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1">
-              <div className={`p-4 rounded-xl mb-4 transition-transform duration-300 group-hover:scale-110 ${cat.color}`}>
+            <div className={`absolute inset-0 bg-gradient-to-br ${cat.color.replace('text', 'from')} to-transparent rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500`}></div>
+            <div className="h-full flex flex-col items-center justify-center p-8 rounded-3xl border border-white/5 bg-secondary/20 backdrop-blur-sm hover:border-white/20 transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-secondary/40">
+              <div className={`p-5 rounded-2xl mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 bg-black/40 border border-white/5 ${cat.color}`}>
                 <cat.icon className="w-8 h-8" />
               </div>
-              <h3 className="font-semibold text-foreground text-center">{cat.name}</h3>
+              <h3 className="font-semibold text-foreground text-center text-lg">{cat.name}</h3>
             </div>
           </motion.div>
         ))}

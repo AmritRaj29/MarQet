@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Twitter, Instagram, Github } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
@@ -7,9 +8,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         <div className="space-y-4">
           <Link href="/">
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              MarQet
-            </span>
+            <Logo />
           </Link>
           <p className="text-sm text-muted-foreground max-w-xs">
             Empowering local communities with a seamless and secure digital marketplace.
