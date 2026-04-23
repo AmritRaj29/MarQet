@@ -2,28 +2,38 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Star, Clock, Store } from "lucide-react";
+import { MapPin, Star, Clock, Store, Navigation } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useGeolocation } from "@/hooks/useGeolocation";
 
 export default function ShopsDirectory() {
   const [shops, setShops] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const { location, isLoading: locationLoading, error: locationError } = useGeolocation();
 
   useEffect(() => {
     const fetchShops = async () => {
+      setLoading(true);
       try {
-        const res = await fetch("http://localhost:5000/api/shops");
+        let url = "http://localhost:5000/api/shops";
+        if (location) {
+          url = `http://localhost:5000/api/shops/nearby?lat=${location.lat}&lng=${location.lng}`;
+        }
+        const res = await fetch(url);
         const data = await res.json();
-        setShops(data);
+        setShops(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching shops", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchShops();
-  }, []);
+
+    if (!locationLoading) {
+      fetchShops();
+    }
+  }, [location, locationLoading]);
 
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col pt-24">

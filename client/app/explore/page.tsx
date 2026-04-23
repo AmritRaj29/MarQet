@@ -5,18 +5,25 @@ import { motion } from "framer-motion";
 import { Search, ShoppingBag, Star, Filter } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useGeolocation } from "@/hooks/useGeolocation";
 
 export default function ExploreProducts() {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState("");
+  const { location, isLoading: locationLoading } = useGeolocation();
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
-        const res = await fetch(`http://localhost:5000/api/products?keyword=${keyword}`);
+        let url = `http://localhost:5000/api/products?keyword=${keyword}`;
+        if (location) {
+          url += `&lat=${location.lat}&lng=${location.lng}`;
+        }
+        const res = await fetch(url);
         const data = await res.json();
-        setProducts(data);
+        setProducts(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching products", error);
       } finally {
@@ -24,12 +31,14 @@ export default function ExploreProducts() {
       }
     };
     
-    // Simple debounce
-    const timeoutId = setTimeout(() => {
-      fetchProducts();
-    }, 300);
-    return () => clearTimeout(timeoutId);
-  }, [keyword]);
+    if (!locationLoading) {
+      // Simple debounce
+      const timeoutId = setTimeout(() => {
+        fetchProducts();
+      }, 300);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [keyword, location, locationLoading]);
 
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col pt-24">

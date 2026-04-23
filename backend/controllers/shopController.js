@@ -23,7 +23,34 @@ const getShopById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Fetch nearby shops
+// @route   GET /api/shops/nearby
+// @access  Public
+const getNearbyShops = asyncHandler(async (req, res) => {
+  const { lat, lng, distance = 5000 } = req.query; // default 5km
+
+  if (!lat || !lng) {
+    res.status(400);
+    throw new Error('Please provide latitude and longitude');
+  }
+
+  const shops = await Shop.find({
+    location: {
+      $near: {
+        $maxDistance: parseInt(distance),
+        $geometry: {
+          type: 'Point',
+          coordinates: [parseFloat(lng), parseFloat(lat)]
+        }
+      }
+    }
+  });
+
+  res.json(shops);
+});
+
 module.exports = {
   getShops,
   getShopById,
+  getNearbyShops,
 };

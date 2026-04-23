@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Product = require('../models/Product');
+const Shop = require('../models/Shop');
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -14,7 +15,27 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {};
 
-  const products = await Product.find({ ...keyword }).populate('shopId', 'shopName shopImage');
+  const { lat, lng, distance = 5000 } = req.query;
+  let shopFilter = {};
+
+  if (lat && lng) {
+    const nearbyShops = await Shop.find({
+      location: {
+        $near: {
+          $maxDistance: parseInt(distance),
+          $geometry: {
+            type: 'Point',
+            coordinates: [parseFloat(lng), parseFloat(lat)]
+          }
+        }
+      }
+    }).select('_id');
+    
+    const shopIds = nearbyShops.map(shop => shop._id);
+    shopFilter = { shopId: { $in: shopIds } };
+  }
+
+  const products = await Product.find({ ...keyword, ...shopFilter }).populate('shopId', 'shopName shopImage');
   res.json(products);
 });
 
