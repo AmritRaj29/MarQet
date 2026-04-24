@@ -4,6 +4,7 @@ import HowItWorks from "@/components/HowItWorks";
 import FeaturedCategories from "@/components/FeaturedCategories";
 import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
+import NearbyShopsMarquee from "@/components/NearbyShopsMarquee";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Navbar />
       <div className="flex-1">
         <Hero />
+        <NearbyShopsMarquee />
         <HowItWorks />
         <FeaturedCategories />
         <CallToAction />

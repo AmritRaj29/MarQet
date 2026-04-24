@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { verifyPayment } = require('../controllers/paymentController');
+const { comparePrices } = require('../controllers/botController');
 const { protect } = require('../middleware/authMiddleware');
 
-router.route('/verify').post(protect, verifyPayment);
+router.route('/compare').post(protect, comparePrices);
 
 module.exports = router;

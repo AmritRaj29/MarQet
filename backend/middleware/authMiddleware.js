@@ -36,13 +36,4 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-const requireSeller = (req, res, next) => {
-  if (req.user && req.user.role === 'shopkeeper') {
-    next();
-  } else {
-    res.status(403);
-    throw new Error('Not authorized as a seller');
-  }
-};
-
-module.exports = { protect, requireSeller };
+module.exports = { protect };

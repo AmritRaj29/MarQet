@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
+import SparklesBackground from "./SparklesBackground";
 
 export default function Hero() {
   return (
@@ -23,6 +24,8 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/40 to-background/95"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/10 mix-blend-overlay"></div>
       </div>
+      
+      <SparklesBackground />
       
       <div className="container relative z-10 px-4 md:px-6 flex flex-col items-center text-center mt-16">
         <motion.div

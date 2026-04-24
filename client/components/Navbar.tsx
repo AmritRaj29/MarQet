@@ -56,9 +56,15 @@ export default function Navbar() {
         {mounted && isAuthenticated ? (
           <div className="flex items-center gap-2">
             {user?.role === 'shopkeeper' && (
-              <Link href="/dashboard" className="p-2 hover:bg-secondary rounded-full transition-colors flex items-center gap-2 text-sm text-green-500">
+              <Link href="/dashboard" className="p-2 hover:bg-secondary rounded-full transition-colors flex items-center gap-2 text-sm text-emerald-500">
                 <LayoutDashboard className="w-4 h-4" />
                 <span className="hidden md:inline font-medium">Dashboard</span>
+              </Link>
+            )}
+            {user?.role === 'user' && (
+              <Link href="/account" className="p-2 hover:bg-secondary rounded-full transition-colors flex items-center gap-2 text-sm text-primary">
+                <User className="w-4 h-4" />
+                <span className="hidden md:inline font-medium">Account</span>
               </Link>
             )}
             <div className="text-sm text-muted-foreground hidden md:block px-2 border-l border-white/10">

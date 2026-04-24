@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Product = require('../models/Product');
 const Shop = require('../models/Shop');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -53,9 +54,17 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Fetch products by shop
+// @route   GET /api/products/shop/:shopId
+// @access  Public
+const getShopProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({ shopId: req.params.shopId }).populate('shopId', 'shopName shopImage');
+  res.json(products);
+});
+
 // @desc    Create a product
 // @route   POST /api/products
-// @access  Private/Seller
+// @access  Private/Shopkeeper
 const createProduct = asyncHandler(async (req, res) => {
   const shop = await Shop.findOne({ ownerId: req.user._id });
   if (!shop) {
@@ -63,7 +72,7 @@ const createProduct = asyncHandler(async (req, res) => {
     throw new Error('Shop not found for this user');
   }
 
-  const { name, description, category, price, stock, images } = req.body;
+  const { name, description, category, price, discountPrice, stock, images, tags } = req.body;
 
   const product = new Product({
     shopId: shop._id,
@@ -71,8 +80,10 @@ const createProduct = asyncHandler(async (req, res) => {
     description,
     category,
     price,
+    discountPrice,
     stock,
     images: images || [],
+    tags: tags || [],
   });
 
   const createdProduct = await product.save();
@@ -81,7 +92,7 @@ const createProduct = asyncHandler(async (req, res) => {
 
 // @desc    Update a product
 // @route   PUT /api/products/:id
-// @access  Private/Seller
+// @access  Private/Shopkeeper
 const updateProduct = asyncHandler(async (req, res) => {
   const shop = await Shop.findOne({ ownerId: req.user._id });
   
@@ -101,9 +112,11 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.name = req.body.name || product.name;
     product.description = req.body.description || product.description;
     product.category = req.body.category || product.category;
-    product.price = req.body.price || product.price;
-    product.stock = req.body.stock || product.stock;
+    product.price = req.body.price !== undefined ? req.body.price : product.price;
+    product.discountPrice = req.body.discountPrice !== undefined ? req.body.discountPrice : product.discountPrice;
+    product.stock = req.body.stock !== undefined ? req.body.stock : product.stock;
     product.images = req.body.images || product.images;
+    product.tags = req.body.tags || product.tags;
 
     const updatedProduct = await product.save();
     res.json(updatedProduct);
@@ -115,7 +128,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 // @desc    Delete a product
 // @route   DELETE /api/products/:id
-// @access  Private/Seller
+// @access  Private/Shopkeeper
 const deleteProduct = asyncHandler(async (req, res) => {
   const shop = await Shop.findOne({ ownerId: req.user._id });
 
@@ -139,10 +152,50 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Generate a product description using Gemini AI
+// @route   POST /api/products/generate-description
+// @access  Private/Shopkeeper
+const generateProductDescription = asyncHandler(async (req, res) => {
+  const { name, category, keywords } = req.body;
+
+  if (!name) {
+    res.status(400);
+    throw new Error('Product name is required');
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    res.status(500);
+    throw new Error('Gemini API key is not configured');
+  }
+
+  try {
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = `Write a compelling, SEO-friendly product description for a product named "${name}". 
+    ${category ? `Category: ${category}. ` : ''}
+    ${keywords ? `Include these keywords: ${keywords}. ` : ''}
+    Keep it concise, engaging, and highlight the value for a hyperlocal marketplace customer. Ensure it's plain text or markdown without excessive formatting.`;
+
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    const text = response.text();
+
+    res.json({ description: text });
+  } catch (error) {
+    console.error('Gemini API Error:', error);
+    res.status(500);
+    throw new Error('Failed to generate product description');
+  }
+});
+
 module.exports = {
   getProducts,
   getProductById,
+  getShopProducts,
   createProduct,
   updateProduct,
   deleteProduct,
+  generateProductDescription,
 };

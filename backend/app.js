@@ -20,6 +20,7 @@ app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/subscriptions', require('./routes/subscriptionRoutes'));
 app.use('/api/search', require('./routes/searchRoutes'));
+app.use('/api/bot', require('./routes/botRoutes'));
 
 // Error Middleware
 app.use(notFound);
