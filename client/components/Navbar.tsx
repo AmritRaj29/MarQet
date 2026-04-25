@@ -3,8 +3,8 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import { useCartStore } from "@/store/useCartStore";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Search, ShoppingBag, User, LogOut, LayoutDashboard } from "lucide-react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { Search, ShoppingBag, User, LogOut, LayoutDashboard, Menu, X } from "lucide-react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 
@@ -12,6 +12,14 @@ export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuthStore();
   const { toggleCart, items } = useCartStore();
   const [mounted, setMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -21,67 +29,119 @@ export default function Navbar() {
     <motion.nav 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md bg-background/70 border-b border-white/10"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? "py-3 bg-background/80 backdrop-blur-xl border-b border-white/10 shadow-2xl" 
+          : "py-5 bg-transparent border-transparent"
+      }`}
     >
-      <div className="flex items-center gap-8">
-        <Link href="/">
-          <Logo />
-        </Link>
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
-          <Link href="/explore" className="hover:text-foreground transition-colors">Explore</Link>
-          <Link href="/shops" className="hover:text-foreground transition-colors">Local Shops</Link>
-          <Link href="/deals" className="hover:text-foreground transition-colors">Deals</Link>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <div className="relative hidden md:block">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <input 
-            type="text" 
-            placeholder="Search items, shops..." 
-            className="pl-9 pr-4 py-2 text-sm bg-secondary/50 border border-white/5 rounded-full focus:outline-none focus:ring-1 focus:ring-primary w-64 transition-all"
-          />
-        </div>
-        
-        <button onClick={toggleCart} className="p-2 hover:bg-secondary rounded-full transition-colors relative">
-          <ShoppingBag className="w-5 h-5" />
-          {mounted && items.length > 0 && (
-            <span className="absolute top-0 right-0 w-4 h-4 bg-primary text-[10px] font-bold flex items-center justify-center rounded-full">
-              {items.length}
-            </span>
-          )}
-        </button>
-
-        {mounted && isAuthenticated ? (
-          <div className="flex items-center gap-2">
-            {user?.role === 'shopkeeper' && (
-              <Link href="/dashboard" className="p-2 hover:bg-secondary rounded-full transition-colors flex items-center gap-2 text-sm text-emerald-500">
-                <LayoutDashboard className="w-4 h-4" />
-                <span className="hidden md:inline font-medium">Dashboard</span>
-              </Link>
-            )}
-            {user?.role === 'user' && (
-              <Link href="/account" className="p-2 hover:bg-secondary rounded-full transition-colors flex items-center gap-2 text-sm text-primary">
-                <User className="w-4 h-4" />
-                <span className="hidden md:inline font-medium">Account</span>
-              </Link>
-            )}
-            <div className="text-sm text-muted-foreground hidden md:block px-2 border-l border-white/10">
-              {user?.name?.split(' ')[0]}
+      <div className="container mx-auto px-6 flex items-center justify-between">
+        <div className="flex items-center gap-12">
+          <Link href="/">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-primary drop-shadow-[0_0_15px_rgba(236,72,153,0.5)]">
+                MarQet
+              </span>
             </div>
-            <button onClick={() => logout()} className="p-2 hover:bg-secondary rounded-full transition-colors" title="Logout">
-              <LogOut className="w-5 h-5 text-destructive" />
-            </button>
-          </div>
-        ) : mounted ? (
-          <Link href="/login" className="p-2 hover:bg-secondary rounded-full transition-colors">
-            <User className="w-5 h-5" />
           </Link>
-        ) : (
-          <div className="w-9 h-9"></div>
-        )}
+          
+          <div className="hidden lg:flex items-center gap-8 text-sm font-semibold text-white/80">
+            <Link href="/shops" className="hover:text-white transition-colors">Shop</Link>
+            <Link href="/register?role=shopkeeper" className="hover:text-white transition-colors">Sellers</Link>
+            <Link href="#about" className="hover:text-white transition-colors">About</Link>
+            <Link href="#contact" className="hover:text-white transition-colors">Contact</Link>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="relative hidden md:block">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
+            <input 
+              type="text" 
+              placeholder="Search..." 
+              className="pl-9 pr-4 py-2 text-sm bg-white/5 border border-white/10 rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50 w-48 transition-all hover:bg-white/10"
+            />
+          </div>
+          
+          <button onClick={toggleCart} className="p-2 hover:bg-white/10 rounded-full transition-colors relative">
+            <ShoppingBag className="w-5 h-5 text-white/80" />
+            {mounted && items.length > 0 && (
+              <span className="absolute top-0 right-0 w-4 h-4 bg-gradient-to-r from-pink-500 to-primary text-white text-[10px] font-bold flex items-center justify-center rounded-full shadow-[0_0_10px_rgba(236,72,153,0.5)]">
+                {items.length}
+              </span>
+            )}
+          </button>
+
+          {mounted && isAuthenticated ? (
+            <div className="hidden md:flex items-center gap-3">
+              {user?.role === 'shopkeeper' ? (
+                <Link href="/dashboard" className="p-2 hover:bg-white/10 rounded-full transition-colors flex items-center gap-2 text-sm text-emerald-400">
+                  <LayoutDashboard className="w-4 h-4" />
+                </Link>
+              ) : (
+                <Link href="/account" className="p-2 hover:bg-white/10 rounded-full transition-colors flex items-center gap-2 text-sm text-primary">
+                  <User className="w-4 h-4" />
+                </Link>
+              )}
+              <div className="text-sm text-white/60 px-2 border-l border-white/20">
+                {user?.name?.split(' ')[0]}
+              </div>
+              <button onClick={() => logout()} className="p-2 hover:bg-white/10 rounded-full transition-colors" title="Logout">
+                <LogOut className="w-4 h-4 text-destructive/80 hover:text-destructive" />
+              </button>
+            </div>
+          ) : mounted ? (
+            <div className="hidden md:flex items-center gap-3 ml-2">
+              <Link href="/login" className="text-sm font-semibold text-white/80 hover:text-white transition-colors">
+                Login
+              </Link>
+              <Link href="/register" className="px-4 py-2 text-sm font-bold text-white bg-gradient-to-r from-pink-500 to-purple-600 rounded-full hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] transition-all transform hover:scale-105">
+                Get Started
+              </Link>
+            </div>
+          ) : (
+            <div className="w-32 h-9 hidden md:block"></div>
+          )}
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="md:hidden p-2 text-white/80"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-4 shadow-2xl"
+        >
+          <Link href="/shops" className="text-lg font-semibold text-white/80">Shop</Link>
+          <Link href="/register?role=shopkeeper" className="text-lg font-semibold text-white/80">Sellers</Link>
+          <Link href="#about" className="text-lg font-semibold text-white/80">About</Link>
+          <Link href="#contact" className="text-lg font-semibold text-white/80">Contact</Link>
+          
+          <hr className="border-white/10 my-2" />
+          
+          {isAuthenticated ? (
+            <div className="flex flex-col gap-4">
+               <span className="text-white/60">Hello, {user?.name}</span>
+               <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="text-left text-destructive font-semibold">Logout</button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              <Link href="/login" className="text-lg font-semibold text-white">Login</Link>
+              <Link href="/register" className="px-4 py-3 text-center text-sm font-bold text-white bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl">
+                Get Started
+              </Link>
+            </div>
+          )}
+        </motion.div>
+      )}
     </motion.nav>
   );
 }

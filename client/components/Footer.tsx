@@ -1,59 +1,111 @@
+"use client";
+
 import Link from "next/link";
-import { Twitter, Instagram, Github } from "lucide-react";
-import Logo from "@/components/Logo";
+import { Facebook, Twitter, Instagram, Linkedin, ArrowRight } from "lucide-react";
+import Logo from "./Logo";
 
 export default function Footer() {
+  const footerLinks = [
+    {
+      title: "Company",
+      links: [
+        { label: "About Us", href: "#" },
+        { label: "Careers", href: "#" },
+        { label: "Blog", href: "#" },
+        { label: "Press", href: "#" },
+      ],
+    },
+    {
+      title: "For Users",
+      links: [
+        { label: "Explore Shops", href: "/shops" },
+        { label: "How it Works", href: "#" },
+        { label: "PayLater Credit", href: "#" },
+        { label: "Refer a Friend", href: "#" },
+      ],
+    },
+    {
+      title: "For Sellers",
+      links: [
+        { label: "Become a Seller", href: "/register?role=shopkeeper" },
+        { label: "Seller Dashboard", href: "/dashboard" },
+        { label: "Pricing & Plans", href: "#" },
+        { label: "Success Stories", href: "#" },
+      ],
+    },
+    {
+      title: "Support",
+      links: [
+        { label: "Help Center", href: "#" },
+        { label: "Safety Center", href: "#" },
+        { label: "Community Guidelines", href: "#" },
+      ],
+    },
+    {
+      title: "Legal",
+      links: [
+        { label: "Terms of Service", href: "#" },
+        { label: "Privacy Policy", href: "#" },
+        { label: "Cookie Policy", href: "#" },
+      ],
+    },
+  ];
+
   return (
-    <footer className="border-t border-white/10 bg-background/50 backdrop-blur-md pt-16 pb-8 px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-        <div className="space-y-4">
-          <Link href="/">
-            <Logo />
-          </Link>
-          <p className="text-sm text-muted-foreground max-w-xs">
-            Empowering local communities with a seamless and secure digital marketplace.
-          </p>
-          <div className="flex gap-4 pt-2">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors"><Twitter className="w-5 h-5"/></a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors"><Instagram className="w-5 h-5"/></a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors"><Github className="w-5 h-5"/></a>
+    <footer className="bg-black pt-24 pb-8 border-t border-white/10">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">
+          <div className="lg:col-span-2">
+            <Link href="/" className="inline-block mb-6">
+              <Logo />
+            </Link>
+            <p className="text-white/60 mb-8 max-w-sm leading-relaxed">
+              Elevating the local shopping experience. Connect with neighborhood stores instantly, securely, and seamlessly.
+            </p>
+            
+            <div className="flex gap-4">
+              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
+                <a key={i} href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all hover:scale-110 active:scale-95 text-white/60">
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:col-span-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {footerLinks.map((column, idx) => (
+              <div key={idx}>
+                <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">{column.title}</h4>
+                <ul className="space-y-4">
+                  {column.links.map((link, linkIdx) => (
+                    <li key={linkIdx}>
+                      <Link href={link.href} className="text-white/60 hover:text-primary transition-colors text-sm">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
-        
-        <div>
-          <h4 className="font-semibold mb-4">Marketplace</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="#" className="hover:text-primary transition-colors">All Categories</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Today's Deals</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Local Services</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Seller Directory</a></li>
-          </ul>
-        </div>
 
-        <div>
-          <h4 className="font-semibold mb-4">Support</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="#" className="hover:text-primary transition-colors">Help Center</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Safety Center</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Community Guidelines</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Contact Us</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="font-semibold mb-4">Legal</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Cookie Policy</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div className="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-        <p>&copy; {new Date().getFullYear()} MarQet. All rights reserved.</p>
-        <div className="flex gap-6">
-          <span>Made with ❤️ for local communities</span>
+        <div className="border-t border-white/10 pt-12 pb-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4 bg-white/5 p-2 rounded-full border border-white/10 w-full md:w-auto">
+            <input type="email" placeholder="Subscribe to our newsletter" className="bg-transparent border-none outline-none text-white px-4 text-sm w-full md:w-64" />
+            <button className="w-10 h-10 rounded-full bg-primary flex items-center justify-center hover:scale-105 transition-transform shrink-0">
+              <ArrowRight className="w-4 h-4 text-white" />
+            </button>
+          </div>
+          
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12">
+            <p className="text-white/40 text-sm">
+              &copy; {new Date().getFullYear()} MarQet Technologies Inc. All rights reserved.
+            </p>
+            <p className="text-white/40 text-sm flex items-center gap-1">
+              Made with <span className="text-red-500 animate-pulse">❤️</span> in India
+            </p>
+          </div>
         </div>
       </div>
     </footer>

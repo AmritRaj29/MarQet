@@ -1,1 +1,21 @@
-﻿
+$kind: http-request
+name: Get Shop By ID
+method: GET
+url: '{{baseUrl}}/api/shops/{{shopId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response has shopName", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("shopName");
+        pm.collectionVariables.set("shopId", json._id);
+      });
+      pm.test("Invalid ID returns 404", function () {
+        if (pm.response.code === 404) {
+          pm.expect(pm.response.json().message).to.include("not found");
+        }
+      });

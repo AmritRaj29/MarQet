@@ -6,7 +6,7 @@ auth:
   type: bearer
   credentials:
     - key: token
-      value: '{{token}}'
+      value: '{{shopkeeperToken}}'
 scripts:
   - type: afterResponse
     language: text/javascript

@@ -13,6 +13,7 @@ scripts:
         const json = pm.response.json();
         pm.expect(json).to.have.property("name");
         pm.expect(json).to.have.property("price");
+        pm.collectionVariables.set("productId", json._id);
       });
       pm.test("Invalid ID returns 404", function () {
         if (pm.response.code === 404) {
