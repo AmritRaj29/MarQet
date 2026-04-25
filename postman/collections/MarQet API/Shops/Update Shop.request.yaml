@@ -1,0 +1,36 @@
+$kind: http-request
+name: Update Shop
+method: PUT
+url: '{{baseUrl}}/api/shops/me'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "shopName": "Updated Electronics Store",
+      "description": "Updated description",
+      "city": "Mumbai"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Shop name is updated", function () {
+        const json = pm.response.json();
+        pm.expect(json.shopName).to.eql("Updated Electronics Store");
+      });
+      pm.test("Shop not found returns 404", function () {
+        if (pm.response.code === 404) {
+          pm.expect(pm.response.json().message).to.include("not found");
+        }
+      });

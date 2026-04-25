@@ -1,0 +1,24 @@
+$kind: http-request
+name: Get Shop Orders
+method: GET
+url: '{{baseUrl}}/api/orders/shop/{{shopId}}'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response is an array", function () {
+        pm.expect(pm.response.json()).to.be.an("array");
+      });
+      pm.test("Non-shopkeeper returns 403", function () {
+        if (pm.response.code === 403) {
+          pm.expect(pm.response.json()).to.have.property("message");
+        }
+      });

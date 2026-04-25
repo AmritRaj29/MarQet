@@ -1,0 +1,37 @@
+$kind: http-request
+name: Generate Product Description
+method: POST
+url: '{{baseUrl}}/api/products/generate-description'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Wireless Headphones",
+      "category": "Electronics",
+      "keywords": "bluetooth, noise-cancelling, 30hr battery"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response has description field", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("description");
+        pm.expect(json.description).to.be.a("string").and.not.empty;
+      });
+      pm.test("Missing product name returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json().message).to.include("name is required");
+        }
+      });

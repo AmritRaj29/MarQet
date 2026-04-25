@@ -1,0 +1,23 @@
+﻿name: MarQet Local
+values:
+  - key: baseUrl
+    value: 'http://localhost:5000'
+    enabled: true
+  - key: token
+    value: ''
+    enabled: true
+  - key: userId
+    value: ''
+    enabled: true
+  - key: shopId
+    value: ''
+    enabled: true
+  - key: productId
+    value: ''
+    enabled: true
+  - key: orderId
+    value: ''
+    enabled: true
+  - key: shopkeeperToken
+    value: ''
+    enabled: true

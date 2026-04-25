@@ -1,0 +1,50 @@
+$kind: http-request
+name: Compare Prices
+method: POST
+url: '{{baseUrl}}/api/bot/compare'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "productName": "Wireless Headphones",
+      "lat": 30.7333,
+      "lng": 76.7794
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response has comparison data", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("comparisons");
+        pm.expect(json.comparisons).to.be.an("array");
+      });
+      pm.test("Each comparison has shop and price", function () {
+        const comparisons = pm.response.json().comparisons;
+        if (comparisons.length > 0) {
+          pm.expect(comparisons[0]).to.have.property("shop");
+          pm.expect(comparisons[0]).to.have.property("price");
+        }
+      });
+      pm.test("Results sorted by price ascending", function () {
+        const comparisons = pm.response.json().comparisons;
+        if (comparisons.length > 1) {
+          pm.expect(comparisons[0].price).to.be.at.most(comparisons[1].price);
+        }
+      });
+      pm.test("Missing product name returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json().message).to.include("productName");
+        }
+      });

@@ -1,0 +1,37 @@
+$kind: http-request
+name: Register Shopkeeper
+method: POST
+url: '{{baseUrl}}/api/auth/register'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Test Shopkeeper",
+      "email": "shopkeeper@example.com",
+      "password": "password123",
+      "phone": "8888888888",
+      "role": "shopkeeper"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201 Created", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Response has token", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("token");
+        pm.collectionVariables.set("shopkeeperToken", json.token);
+      });
+      pm.test("Response has user id", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("_id");
+      });
+      pm.test("Role is shopkeeper", function () {
+        const json = pm.response.json();
+        pm.expect(json.role).to.eql("shopkeeper");
+      });

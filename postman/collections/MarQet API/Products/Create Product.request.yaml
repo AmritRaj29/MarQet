@@ -1,0 +1,45 @@
+$kind: http-request
+name: Create Product
+method: POST
+url: '{{baseUrl}}/api/products'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Wireless Headphones",
+      "description": "Premium noise-cancelling headphones",
+      "category": "Electronics",
+      "price": 1999,
+      "discountPrice": 1499,
+      "stock": 25,
+      "tags": ["wireless", "audio", "bluetooth"]
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201 Created", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Response has product _id", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("_id");
+        pm.collectionVariables.set("productId", json._id);
+      });
+      pm.test("Price is correct", function () {
+        const json = pm.response.json();
+        pm.expect(json.price).to.eql(1999);
+      });
+      pm.test("No shop found returns 404", function () {
+        if (pm.response.code === 404) {
+          pm.expect(pm.response.json().message).to.include("Shop not found");
+        }
+      });

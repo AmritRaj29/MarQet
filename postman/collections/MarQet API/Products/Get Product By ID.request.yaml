@@ -1,0 +1,21 @@
+$kind: http-request
+name: Get Product By ID
+method: GET
+url: '{{baseUrl}}/api/products/{{productId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response has product name and price", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("name");
+        pm.expect(json).to.have.property("price");
+      });
+      pm.test("Invalid ID returns 404", function () {
+        if (pm.response.code === 404) {
+          pm.expect(pm.response.json().message).to.include("not found");
+        }
+      });

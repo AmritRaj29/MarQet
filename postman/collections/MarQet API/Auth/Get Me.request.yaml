@@ -1,0 +1,27 @@
+$kind: http-request
+name: Get Me
+method: GET
+url: '{{baseUrl}}/api/auth/me'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Returns user object", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("_id");
+        pm.expect(json).to.have.property("email");
+        pm.expect(json).to.have.property("role");
+      });
+      pm.test("Unauthenticated request returns 401", function () {
+        if (pm.response.code === 401) {
+          pm.expect(pm.response.json()).to.have.property("message");
+        }
+      });

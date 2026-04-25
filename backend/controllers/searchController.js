@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const Product = require('../models/Product');
 const Shop = require('../models/Shop');
+const searchService = require('../services/searchService');
 
 // @desc    Perform AI-powered search
 // @route   GET /api/search/ai
@@ -90,6 +91,96 @@ const aiSearch = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Keyword-based product search with distance
+// @route   GET /api/search
+// @access  Public
+const searchProducts = asyncHandler(async (req, res) => {
+  const { query, lat, lng, radius } = req.query;
+
+  if (!query) {
+    res.status(400);
+    throw new Error('Search query is required');
+  }
+
+  const results = await searchService.searchProducts({
+    query,
+    userLat: lat,
+    userLng: lng,
+    radiusKm: radius ? parseFloat(radius) : 5
+  });
+
+  res.json(results);
+});
+
+// @desc    Keyword-based product price comparison
+// @route   GET /api/search/compare
+// @access  Public
+const compareProduct = asyncHandler(async (req, res) => {
+  const { query, lat, lng, radius } = req.query;
+
+  if (!query) {
+    res.status(400);
+    throw new Error('Search query is required');
+  }
+
+  const results = await searchService.searchProducts({
+    query,
+    userLat: lat,
+    userLng: lng,
+    radiusKm: radius ? parseFloat(radius) : 5
+  });
+
+  if (results.length === 0) {
+    return res.json({
+      message: 'No products found to compare.',
+      cheapestPrice: null,
+      highestPrice: null,
+      avgPrice: null,
+      nearestShop: null,
+      cheapestShop: null,
+      results: []
+    });
+  }
+
+  let cheapestPrice = Number.MAX_VALUE;
+  let highestPrice = 0;
+  let totalPrice = 0;
+  let nearestDistance = Number.MAX_VALUE;
+  let nearestShop = null;
+  let cheapestShop = null;
+
+  results.forEach(item => {
+    const price = item.discountPrice || item.price;
+    
+    if (price < cheapestPrice) {
+      cheapestPrice = price;
+      cheapestShop = item.shopName;
+    }
+    if (price > highestPrice) {
+      highestPrice = price;
+    }
+    totalPrice += price;
+
+    if (item.distanceKm !== null && item.distanceKm < nearestDistance) {
+      nearestDistance = item.distanceKm;
+      nearestShop = item.shopName;
+    }
+  });
+
+  const avgPrice = parseFloat((totalPrice / results.length).toFixed(2));
+
+  res.json({
+    cheapestPrice,
+    highestPrice,
+    avgPrice,
+    nearestShop,
+    cheapestShop,
+    results
+  });
+});
+
 module.exports = {
   aiSearch,
+  searchProducts,
+  compareProduct,
 };

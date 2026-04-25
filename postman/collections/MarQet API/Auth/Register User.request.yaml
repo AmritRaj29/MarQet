@@ -1,0 +1,38 @@
+$kind: http-request
+name: Register User
+method: POST
+url: '{{baseUrl}}/api/auth/register'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Test User",
+      "email": "testuser@example.com",
+      "password": "password123",
+      "phone": "9999999999",
+      "role": "user"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201 Created", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Response has token", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("token");
+        pm.collectionVariables.set("token", json.token);
+      });
+      pm.test("Response has user id", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("_id");
+        pm.collectionVariables.set("userId", json._id);
+      });
+      pm.test("Role is user", function () {
+        const json = pm.response.json();
+        pm.expect(json.role).to.eql("user");
+      });

@@ -1,0 +1,44 @@
+$kind: http-request
+name: AI Search
+method: POST
+url: '{{baseUrl}}/api/search'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "query": "affordable wireless headphones under 2000",
+      "lat": 30.7333,
+      "lng": 76.7794
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response has results array", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("results");
+        pm.expect(json.results).to.be.an("array");
+      });
+      pm.test("Each result has product and shop info", function () {
+        const results = pm.response.json().results;
+        if (results.length > 0) {
+          pm.expect(results[0]).to.have.property("product");
+          pm.expect(results[0]).to.have.property("shop");
+        }
+      });
+      pm.test("Empty query returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json().message).to.include("query");
+        }
+      });

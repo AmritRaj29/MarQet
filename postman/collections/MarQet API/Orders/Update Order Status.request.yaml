@@ -1,0 +1,40 @@
+$kind: http-request
+name: Update Order Status
+method: PUT
+url: '{{baseUrl}}/api/orders/{{orderId}}/status'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "status": "confirmed"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Order status is updated", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("status");
+        pm.expect(json.status).to.equal("confirmed");
+      });
+      pm.test("Invalid status returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json().message).to.include("Invalid status");
+        }
+      });
+      pm.test("Unauthorized update returns 403", function () {
+        if (pm.response.code === 403) {
+          pm.expect(pm.response.json()).to.have.property("message");
+        }
+      });

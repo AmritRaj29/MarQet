@@ -33,7 +33,7 @@ export default function SellerOrdersPage() {
           setShop(shopData);
           
           // 2. Get Orders
-          const ordersRes = await fetch(`http://localhost:5000/api/orders/shop/${shopData._id}`, {
+          const ordersRes = await fetch(`http://localhost:5000/api/orders/shop`, {
             headers: { "Authorization": `Bearer ${token}` }
           });
           
@@ -57,12 +57,12 @@ export default function SellerOrdersPage() {
       const token = localStorage.getItem("auth-storage") ? JSON.parse(localStorage.getItem("auth-storage") as string)?.state?.token : null;
       
       const res = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}` 
         },
-        body: JSON.stringify({ status })
+        body: JSON.stringify({ orderStatus: status })
       });
 
       if (res.ok) {

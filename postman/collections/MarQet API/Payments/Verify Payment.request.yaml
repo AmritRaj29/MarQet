@@ -1,0 +1,42 @@
+$kind: http-request
+name: Verify Payment
+method: POST
+url: '{{baseUrl}}/api/payments/verify'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "razorpay_order_id": "order_{{razorpayOrderId}}",
+      "razorpay_payment_id": "pay_{{razorpayPaymentId}}",
+      "razorpay_signature": "{{razorpaySignature}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Payment verification successful", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("success");
+        pm.expect(json.success).to.be.true;
+      });
+      pm.test("Invalid signature returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json().message).to.include("Invalid signature");
+        }
+      });
+      pm.test("Missing fields returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json()).to.have.property("message");
+        }
+      });

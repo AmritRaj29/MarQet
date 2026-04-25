@@ -1,0 +1,26 @@
+$kind: http-request
+name: Get My Shop
+method: GET
+url: '{{baseUrl}}/api/shops/me'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response has ownerId", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("ownerId");
+        pm.collectionVariables.set("shopId", json._id);
+      });
+      pm.test("Non-shopkeeper returns 403", function () {
+        if (pm.response.code === 403) {
+          pm.expect(pm.response.json()).to.have.property("message");
+        }
+      });

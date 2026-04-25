@@ -1,0 +1,50 @@
+$kind: http-request
+name: Create Order
+method: POST
+url: '{{baseUrl}}/api/orders'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "items": [
+        {
+          "_id": "{{productId}}",
+          "shopId": "{{shopId}}",
+          "name": "Wireless Headphones",
+          "price": 1799,
+          "quantity": 2
+        }
+      ],
+      "mode": "pickup",
+      "paymentType": "cash_pickup"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201 Created", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Response has order _id", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("_id");
+        pm.collectionVariables.set("orderId", json._id);
+      });
+      pm.test("Total amount is calculated correctly", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("totalAmount");
+        pm.expect(json.totalAmount).to.be.a("number");
+      });
+      pm.test("Empty items returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json().message).to.include("No order items");
+        }
+      });

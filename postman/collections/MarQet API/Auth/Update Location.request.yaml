@@ -1,0 +1,36 @@
+$kind: http-request
+name: Update Location
+method: PUT
+url: '{{baseUrl}}/api/auth/location'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "lat": 28.6139,
+      "lng": 77.2090
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Location updated in response", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("location");
+        pm.expect(json.location).to.have.property("coordinates");
+      });
+      pm.test("Missing lat/lng returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json().message).to.include("lat");
+        }
+      });

@@ -1,0 +1,52 @@
+$kind: http-request
+name: Create Shop
+method: POST
+url: '{{baseUrl}}/api/shops'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "shopName": "Test Electronics Store",
+      "description": "Best electronics in town",
+      "address": "123 Main Street",
+      "city": "New Delhi",
+      "pincode": "110001",
+      "location": {
+        "lat": 28.6139,
+        "lng": 77.2090
+      },
+      "deliveryOptions": {
+        "selfDelivery": true,
+        "platformDelivery": false
+      }
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201 Created", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Response has shop _id", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("_id");
+        pm.collectionVariables.set("shopId", json._id);
+      });
+      pm.test("Duplicate shop returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json().message).to.include("already has a shop");
+        }
+      });
+      pm.test("Missing location returns 400", function () {
+        if (pm.response.code === 400) {
+          pm.expect(pm.response.json()).to.have.property("message");
+        }
+      });

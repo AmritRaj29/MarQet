@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const normalizeProduct = require('../utils/normalizeProduct');
+const { normalizeProduct } = require('../utils/normalizeProduct');
 
 const productSchema = new mongoose.Schema(
   {

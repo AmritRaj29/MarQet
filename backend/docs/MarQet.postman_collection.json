@@ -1,0 +1,400 @@
+{
+  "info": {
+    "name": "MarQet API",
+    "description": "Hyperlocal Marketplace API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api", "type": "string" },
+    { "key": "token", "value": "YOUR_USER_TOKEN", "type": "string" },
+    { "key": "shopkeeperToken", "value": "YOUR_SHOPKEEPER_TOKEN", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"1234567890\",\n  \"role\": \"user\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register Shopkeeper",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Shop\",\n  \"email\": \"shop@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"0987654321\",\n  \"role\": \"shopkeeper\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        },
+        {
+          "name": "Update Location",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/auth/location", "host": ["{{baseUrl}}"], "path": ["auth", "location"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lat\": 12.9716,\n  \"lng\": 77.5946,\n  \"address\": \"Bangalore\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Shops",
+      "item": [
+        {
+          "name": "Create Shop",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/shops", "host": ["{{baseUrl}}"], "path": ["shops"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shopName\": \"Super Mart\",\n  \"description\": \"Daily groceries\",\n  \"lat\": 12.9716,\n  \"lng\": 77.5946,\n  \"address\": \"Main Road\",\n  \"city\": \"Bangalore\",\n  \"pincode\": \"560001\",\n  \"deliveryOptions\": {\n    \"pickup\": true,\n    \"selfDelivery\": true\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Get My Shop",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" }],
+            "url": { "raw": "{{baseUrl}}/shops/me", "host": ["{{baseUrl}}"], "path": ["shops", "me"] }
+          }
+        },
+        {
+          "name": "Update Shop",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/shops/me", "host": ["{{baseUrl}}"], "path": ["shops", "me"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shopName\": \"Super Mart Updated\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Nearby Shops",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/shops/nearby?lat=12.9716&lng=77.5946&radius=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["shops", "nearby"],
+              "query": [
+                { "key": "lat", "value": "12.9716" },
+                { "key": "lng", "value": "77.5946" },
+                { "key": "radius", "value": "5" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Shop By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/shops/:id", "host": ["{{baseUrl}}"], "path": ["shops", ":id"], "variable": [{ "key": "id", "value": "SHOP_ID_HERE" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Products",
+      "item": [
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/products", "host": ["{{baseUrl}}"], "path": ["products"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Amul Milk\",\n  \"description\": \"Fresh cow milk\",\n  \"category\": \"Dairy\",\n  \"price\": 30,\n  \"stock\": 50\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/products/:id", "host": ["{{baseUrl}}"], "path": ["products", ":id"], "variable": [{ "key": "id", "value": "PRODUCT_ID_HERE" }] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 28\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" }],
+            "url": { "raw": "{{baseUrl}}/products/:id", "host": ["{{baseUrl}}"], "path": ["products", ":id"], "variable": [{ "key": "id", "value": "PRODUCT_ID_HERE" }] }
+          }
+        },
+        {
+          "name": "Get Products By Shop",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/products/shop/:shopId", "host": ["{{baseUrl}}"], "path": ["products", "shop", ":shopId"], "variable": [{ "key": "shopId", "value": "SHOP_ID_HERE" }] }
+          }
+        },
+        {
+          "name": "Get Product By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/products/:id", "host": ["{{baseUrl}}"], "path": ["products", ":id"], "variable": [{ "key": "id", "value": "PRODUCT_ID_HERE" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Subscriptions",
+      "item": [
+        {
+          "name": "Subscribe Shop",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/subscriptions/subscribe", "host": ["{{baseUrl}}"], "path": ["subscriptions", "subscribe"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plan\": \"premium\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get My Subscription",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" }],
+            "url": { "raw": "{{baseUrl}}/subscriptions/me", "host": ["{{baseUrl}}"], "path": ["subscriptions", "me"] }
+          }
+        },
+        {
+          "name": "Cancel Subscription",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" }],
+            "url": { "raw": "{{baseUrl}}/subscriptions/cancel", "host": ["{{baseUrl}}"], "path": ["subscriptions", "cancel"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Orders",
+      "item": [
+        {
+          "name": "Create Order (Pickup)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/orders", "host": ["{{baseUrl}}"], "path": ["orders"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shopId\": \"SHOP_ID_HERE\",\n  \"products\": [\n    { \"productId\": \"PRODUCT_ID_HERE\", \"qty\": 2 }\n  ],\n  \"mode\": \"pickup\",\n  \"deliveryType\": null,\n  \"paymentType\": \"cash_pickup\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Order (Delivery+Platform)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/orders", "host": ["{{baseUrl}}"], "path": ["orders"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shopId\": \"SHOP_ID_HERE\",\n  \"products\": [\n    { \"productId\": \"PRODUCT_ID_HERE\", \"qty\": 1 }\n  ],\n  \"mode\": \"delivery\",\n  \"deliveryType\": \"platform\",\n  \"paymentType\": \"upi\",\n  \"deliveryAddress\": \"123 Local Street\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get My Orders",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/orders/my", "host": ["{{baseUrl}}"], "path": ["orders", "my"] }
+          }
+        },
+        {
+          "name": "Get Shop Orders",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" }],
+            "url": { "raw": "{{baseUrl}}/orders/shop", "host": ["{{baseUrl}}"], "path": ["orders", "shop"] }
+          }
+        },
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/orders/:id/status", "host": ["{{baseUrl}}"], "path": ["orders", ":id", "status"], "variable": [{ "key": "id", "value": "ORDER_ID_HERE" }] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderStatus\": \"packed\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/orders/:id/cancel", "host": ["{{baseUrl}}"], "path": ["orders", ":id", "cancel"], "variable": [{ "key": "id", "value": "ORDER_ID_HERE" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Payments",
+      "item": [
+        {
+          "name": "Approve PayLater",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" }],
+            "url": { "raw": "{{baseUrl}}/payments/paylater/:orderId/approve", "host": ["{{baseUrl}}"], "path": ["payments", "paylater", ":orderId", "approve"], "variable": [{ "key": "orderId", "value": "ORDER_ID_HERE" }] }
+          }
+        },
+        {
+          "name": "Reject PayLater",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{shopkeeperToken}}" }],
+            "url": { "raw": "{{baseUrl}}/payments/paylater/:orderId/reject", "host": ["{{baseUrl}}"], "path": ["payments", "paylater", ":orderId", "reject"], "variable": [{ "key": "orderId", "value": "ORDER_ID_HERE" }] }
+          }
+        },
+        {
+          "name": "Repay Credit",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/payments/credit/repay", "host": ["{{baseUrl}}"], "path": ["payments", "credit", "repay"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shopId\": \"SHOP_ID_HERE\",\n  \"amount\": 100\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Credit History",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/payments/credit", "host": ["{{baseUrl}}"], "path": ["payments", "credit"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Search",
+      "item": [
+        {
+          "name": "Search Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?query=milk&lat=12.9716&lng=77.5946&radius=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"],
+              "query": [
+                { "key": "query", "value": "milk" },
+                { "key": "lat", "value": "12.9716" },
+                { "key": "lng", "value": "77.5946" },
+                { "key": "radius", "value": "5" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Compare Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search/compare?query=milk&lat=12.9716&lng=77.5946&radius=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["search", "compare"],
+              "query": [
+                { "key": "query", "value": "milk" },
+                { "key": "lat", "value": "12.9716" },
+                { "key": "lng", "value": "77.5946" },
+                { "key": "radius", "value": "5" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

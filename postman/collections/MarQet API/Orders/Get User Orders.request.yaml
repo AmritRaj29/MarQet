@@ -1,0 +1,27 @@
+$kind: http-request
+name: Get User Orders
+method: GET
+url: '{{baseUrl}}/api/orders/user/{{userId}}'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 OK", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response is an array", function () {
+        pm.expect(pm.response.json()).to.be.an("array");
+      });
+      pm.test("Orders are sorted by newest first", function () {
+        const orders = pm.response.json();
+        if (orders.length > 1) {
+          const first = new Date(orders[0].createdAt);
+          const second = new Date(orders[1].createdAt);
+          pm.expect(first.getTime()).to.be.at.least(second.getTime());
+        }
+      });

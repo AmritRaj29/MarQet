@@ -30,7 +30,7 @@ export default function UserAccountPage() {
     setLoading(true);
     try {
       const token = localStorage.getItem("auth-storage") ? JSON.parse(localStorage.getItem("auth-storage") as string)?.state?.token : null;
-      const res = await fetch(`http://localhost:5000/api/orders/user/${user?._id}`, {
+      const res = await fetch(`http://localhost:5000/api/orders/my`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
