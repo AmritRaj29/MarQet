@@ -70,8 +70,10 @@ export default function HeroScene() {
           global 
           rotation={[0, 0.3, 0]} 
           polar={[-0.4, 0.2]} 
-          azimuth={[-1, 0.75]} 
+          azimuth={[-1, 0.75]}
+          // @ts-ignore
           config={{ mass: 2, tension: 400 }} 
+          // @ts-ignore
           snap={{ mass: 4, tension: 400 }}
         >
           <FloatingObjects />
