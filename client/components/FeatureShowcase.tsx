@@ -54,9 +54,9 @@ export default function FeatureShowcase() {
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: "top top",
-        end: `+=${features.length * 100}%`,
+        end: `+=${features.length * 60}%`,
         pin: true,
-        scrub: true,
+        scrub: 0.2,
         onUpdate: (self) => {
           const progress = self.progress;
           const newIndex = Math.min(

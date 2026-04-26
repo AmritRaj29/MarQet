@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 overflow-x-hidden">
       <Navbar />
-      <div className="flex-1 w-full overflow-hidden">
+      <div className="flex-1 w-full overflow-hidden relative">
         <Hero />
         <MarqueeBand />
         <FeatureShowcase />

@@ -81,7 +81,8 @@ export default function ProductShowcase() {
         scrollTrigger: {
           trigger: containerRef.current,
           pin: true,
-          scrub: 1,
+          start: "top 80%",
+          scrub: 0.1,
           end: () => `+=${scrollWidth}`,
         },
       });
@@ -91,7 +92,7 @@ export default function ProductShowcase() {
   }, []);
 
   return (
-    <section ref={containerRef} className="h-screen bg-background relative overflow-hidden flex items-center pt-20">
+    <section ref={containerRef} className="py-24 bg-background relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
       
@@ -106,7 +107,7 @@ export default function ProductShowcase() {
         </div>
 
         <div className="overflow-hidden w-full pl-6">
-          <div ref={scrollRef} className="flex gap-8 w-max pr-[50vw]">
+          <div ref={scrollRef} className="flex gap-8 w-max pr-24">
             {mockProducts.map((product) => (
               <TiltCard key={product.id} product={product} />
             ))}
