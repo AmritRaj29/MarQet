@@ -38,7 +38,7 @@ export default function MarqueeBand() {
   ];
 
   return (
-    <section className="py-6 border-y border-white/10 bg-background/50 backdrop-blur-sm overflow-hidden flex items-center group">
+    <section className="py-6 border-y border-zinc-200 dark:border-white/10 bg-background/50 backdrop-blur-sm overflow-hidden flex items-center group">
       <div 
         ref={marqueeRef} 
         className="flex whitespace-nowrap"
@@ -48,7 +48,7 @@ export default function MarqueeBand() {
         <div className="marquee-content flex items-center gap-8 px-4">
           {textItems.map((item, index) => (
             <div key={index} className="flex items-center gap-8">
-              <span className="text-4xl md:text-6xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 uppercase">
+              <span className="text-4xl md:text-6xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white/90 to-white/30 uppercase">
                 {item}
               </span>
               <Star className="w-8 h-8 text-primary animate-spin-slow" />
@@ -56,7 +56,7 @@ export default function MarqueeBand() {
           ))}
           {/* Add one more padding element for smooth looping */}
           <div className="flex items-center gap-8">
-            <span className="text-4xl md:text-6xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 uppercase">
+            <span className="text-4xl md:text-6xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white/90 to-white/30 uppercase">
               {textItems[0]}
             </span>
             <Star className="w-8 h-8 text-primary animate-spin-slow" />

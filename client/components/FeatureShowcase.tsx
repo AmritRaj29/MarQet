@@ -16,7 +16,7 @@ const features = [
     title: "Nearby Shops",
     description: "Instantly discover the highest-rated local sellers around your exact location.",
     icon: Store,
-    color: "from-pink-500 to-rose-500",
+    color: "from-teal-400 to-emerald-400",
   },
   {
     id: 1,
@@ -78,12 +78,12 @@ export default function FeatureShowcase() {
       {/* Animated Background Mesh */}
       <div className="absolute inset-0 z-0">
         <motion.div 
-          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px]"
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-cyan-400/10 rounded-full blur-[120px]"
           animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div 
-          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-[150px]"
+          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-teal-400/10 rounded-full blur-[150px]"
           animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -96,11 +96,11 @@ export default function FeatureShowcase() {
           <div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight">
               Powerful tools for a <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-400">
                 seamless experience.
               </span>
             </h2>
-            <p className="text-white/60 text-lg max-w-md">
+            <p className="text-zinc-600 dark:text-white/60 text-lg max-w-md">
               Everything you need to shop local, built with cutting-edge technology.
             </p>
           </div>
@@ -121,12 +121,12 @@ export default function FeatureShowcase() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="absolute top-0 left-0 w-full"
                   >
-                    <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl shadow-2xl">
+                    <div className="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-white/5 backdrop-blur-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)]">
                       <div className={`w-16 h-16 rounded-2xl mb-6 flex items-center justify-center bg-gradient-to-br ${feature.color}`}>
                         <Icon className="w-8 h-8 text-white" />
                       </div>
-                      <h3 className="text-3xl font-bold text-white mb-4">{feature.title}</h3>
-                      <p className="text-white/60 text-lg leading-relaxed">
+                      <h3 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4">{feature.title}</h3>
+                      <p className="text-zinc-600 dark:text-white/60 text-lg leading-relaxed">
                         {feature.description}
                       </p>
                     </div>
@@ -153,12 +153,12 @@ export default function FeatureShowcase() {
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             />
 
-            <div className="w-[400px] h-[800px] bg-black rounded-[50px] border-[12px] border-white/10 p-4 relative shadow-2xl overflow-hidden backdrop-blur-3xl z-10">
+            <div className="w-[400px] h-[800px] bg-white dark:bg-zinc-900 rounded-[50px] border-[12px] border-zinc-200 dark:border-white/10 p-4 relative shadow-2xl overflow-hidden backdrop-blur-3xl z-10">
               {/* Phone Notch */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-8 bg-black rounded-b-3xl z-50"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-8 bg-white dark:bg-zinc-900 rounded-b-3xl z-50"></div>
               
               {/* Screen Content */}
-              <div className="w-full h-full bg-zinc-950 rounded-[35px] relative overflow-hidden shadow-inner">
+              <div className="w-full h-full bg-gray-50 dark:bg-zinc-950 rounded-[35px] relative overflow-hidden shadow-inner">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeIndex}
@@ -172,12 +172,12 @@ export default function FeatureShowcase() {
                 
                 {/* Simulated UI App Grid */}
                 <div className="absolute inset-0 p-6 pt-16 flex flex-col gap-4 opacity-30">
-                  <div className="w-full h-12 bg-white/10 rounded-2xl"></div>
+                  <div className="w-full h-12 bg-black/10 dark:bg-white/10 rounded-2xl"></div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="aspect-square bg-white/10 rounded-3xl"></div>
-                    <div className="aspect-square bg-white/10 rounded-3xl"></div>
+                    <div className="aspect-square bg-black/10 dark:bg-white/10 rounded-3xl"></div>
+                    <div className="aspect-square bg-black/10 dark:bg-white/10 rounded-3xl"></div>
                   </div>
-                  <div className="w-full flex-1 bg-white/10 rounded-3xl"></div>
+                  <div className="w-full flex-1 bg-black/10 dark:bg-white/10 rounded-3xl"></div>
                 </div>
 
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center z-10 backdrop-blur-[2px]">
@@ -193,13 +193,13 @@ export default function FeatureShowcase() {
                         const ActiveIcon = features[activeIndex].icon;
                         return (
                           <div className="relative">
-                            <ActiveIcon className="w-32 h-32 text-white mb-8 relative z-10" />
+                            <ActiveIcon className="w-32 h-32 text-white mb-8 relative z-10 drop-shadow-md" />
                             {/* Inner glow for icon */}
-                            <div className="absolute inset-0 bg-white/20 blur-2xl rounded-full z-0"></div>
+                            <div className="absolute inset-0 bg-black/20 blur-2xl rounded-full z-0"></div>
                           </div>
                         );
                       })()}
-                      <h4 className="text-3xl font-bold text-white tracking-tight drop-shadow-lg">{features[activeIndex].title}</h4>
+                      <h4 className="text-3xl font-bold text-zinc-900 dark:text-white tracking-tight drop-shadow-lg">{features[activeIndex].title}</h4>
                     </motion.div>
                   </AnimatePresence>
                 </div>

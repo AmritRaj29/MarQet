@@ -72,7 +72,7 @@ export default function ShopsDirectory() {
           <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4 border border-primary/20">
             {location ? "Nearby You" : "All Locations"}
           </span>
-          <h1 className="text-5xl md:text-6xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/50">
+          <h1 className="text-5xl md:text-6xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white dark:from-zinc-900 via-white dark:via-zinc-900 to-white/50">
             Discover Local Shops
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -83,13 +83,13 @@ export default function ShopsDirectory() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-[400px] bg-secondary/30 rounded-3xl animate-pulse border border-white/5"></div>
+              <div key={i} className="h-[400px] bg-secondary/30 rounded-3xl animate-pulse border border-zinc-200 dark:border-white/10"></div>
             ))}
           </div>
         ) : shops.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">
             <Store className="w-16 h-16 mx-auto mb-4 opacity-50" />
-            <h2 className="text-2xl font-bold text-white mb-2">No shops found</h2>
+            <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-2">No shops found</h2>
             <p>We couldn't find any shops matching your criteria.</p>
           </div>
         ) : (
@@ -108,7 +108,7 @@ export default function ShopsDirectory() {
                     scale: 1.02,
                     boxShadow: "0 20px 40px -10px rgba(139,92,246,0.3)" 
                   }}
-                  className="group relative border border-white/10 bg-card/40 backdrop-blur-md rounded-3xl overflow-hidden transition-all duration-500 cursor-pointer h-full flex flex-col"
+                  className="group relative border border-zinc-200 dark:border-white/10 bg-card/40 backdrop-blur-md rounded-3xl overflow-hidden transition-all duration-500 cursor-pointer h-full flex flex-col"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   
@@ -130,11 +130,11 @@ export default function ShopsDirectory() {
                     
                     <div className="absolute top-4 right-4 z-20 flex gap-2">
                       {shop.isVerified && (
-                        <span className="px-3 py-1 bg-blue-500/90 backdrop-blur text-white text-xs font-bold rounded-full shadow-lg border border-blue-400/30">
+                        <span className="px-3 py-1 bg-blue-500/90 backdrop-blur text-zinc-900 dark:text-white text-xs font-bold rounded-full shadow-lg border border-blue-400/30">
                           Verified
                         </span>
                       )}
-                      <span className="px-3 py-1 bg-background/80 backdrop-blur text-white text-xs font-bold rounded-full shadow-lg border border-white/10 flex items-center gap-1">
+                      <span className="px-3 py-1 bg-background/80 backdrop-blur text-zinc-900 dark:text-white text-xs font-bold rounded-full shadow-lg border border-zinc-200 dark:border-white/10 flex items-center gap-1">
                         <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
                         {shop.rating?.toFixed(1) || "New"}
                       </span>
@@ -148,13 +148,13 @@ export default function ShopsDirectory() {
                   </div>
                   
                   <div className="p-6 pt-10 flex-1 flex flex-col">
-                    <h3 className="font-bold text-2xl text-white mb-2 group-hover:text-primary transition-colors">{shop.shopName}</h3>
+                    <h3 className="font-bold text-2xl text-zinc-900 dark:text-white mb-2 group-hover:text-primary transition-colors">{shop.shopName}</h3>
                     <p className="text-muted-foreground text-sm line-clamp-2 mb-6 flex-1">
                       {shop.description || "Premium local business providing top quality products."}
                     </p>
                     
                     <div className="flex flex-wrap gap-3 mt-auto">
-                      <div className="flex items-center gap-2 bg-secondary/50 border border-white/5 px-4 py-2 rounded-xl text-sm font-medium text-white/80 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/20 transition-all">
+                      <div className="flex items-center gap-2 bg-secondary/50 border border-zinc-200 dark:border-white/10 px-4 py-2 rounded-xl text-sm font-medium text-zinc-800 dark:text-white/90 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/20 transition-all">
                         <MapPin className="w-4 h-4" />
                         {shop.city || "Local"}
                       </div>

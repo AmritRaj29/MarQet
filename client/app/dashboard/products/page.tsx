@@ -49,19 +49,19 @@ export default function ProductsManager() {
           <h1 className="text-3xl font-bold text-foreground">Products</h1>
           <p className="text-muted-foreground">Manage your store's inventory.</p>
         </div>
-        <button className="bg-primary text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-primary/90 transition-colors">
+        <button className="bg-primary text-zinc-900 dark:text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-primary/90 transition-colors">
           <Plus className="w-4 h-4" /> Add Product
         </button>
       </div>
 
-      <div className="bg-card border border-white/5 rounded-2xl overflow-hidden shadow-sm">
-        <div className="p-4 border-b border-white/5 flex items-center justify-between">
+      <div className="bg-card border border-zinc-200 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm">
+        <div className="p-4 border-b border-zinc-200 dark:border-white/10 flex items-center justify-between">
           <div className="relative w-72">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input 
               type="text" 
               placeholder="Search products..." 
-              className="w-full pl-9 pr-4 py-2 text-sm bg-secondary/50 border border-white/5 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full pl-9 pr-4 py-2 text-sm bg-secondary/50 border border-zinc-200 dark:border-white/10 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function ProductsManager() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
-                <tr className="border-b border-white/5 bg-secondary/20 text-muted-foreground text-sm">
+                <tr className="border-b border-zinc-200 dark:border-white/10 bg-secondary/20 text-muted-foreground text-sm">
                   <th className="p-4 font-medium">Product Name</th>
                   <th className="p-4 font-medium">Category</th>
                   <th className="p-4 font-medium">Price</th>
@@ -86,7 +86,7 @@ export default function ProductsManager() {
                     key={product._id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="border-b border-white/5 hover:bg-secondary/10 transition-colors"
+                    className="border-b border-zinc-200 dark:border-white/10 hover:bg-secondary/10 transition-colors"
                   >
                     <td className="p-4 flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-secondary overflow-hidden">

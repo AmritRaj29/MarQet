@@ -75,7 +75,7 @@ export default function ShopDetailsPage() {
           <Store className="w-20 h-20 text-muted-foreground opacity-50 mb-6" />
           <h1 className="text-4xl font-bold mb-4">Shop Not Found</h1>
           <p className="text-muted-foreground mb-8">The shop you're looking for doesn't exist or was removed.</p>
-          <Link href="/shops" className="px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition">
+          <Link href="/shops" className="px-6 py-3 bg-primary text-zinc-900 dark:text-white rounded-full font-medium hover:bg-primary/90 transition">
             Browse All Shops
           </Link>
         </div>
@@ -94,7 +94,7 @@ export default function ShopDetailsPage() {
           <ArrowLeft className="w-4 h-4" /> Back to Shops
         </Link>
         
-        <div className="relative w-full h-[300px] md:h-[450px] rounded-3xl overflow-hidden bg-secondary border border-white/10 group shadow-2xl">
+        <div className="relative w-full h-[300px] md:h-[450px] rounded-3xl overflow-hidden bg-secondary border border-zinc-200 dark:border-white/10 group shadow-2xl">
           <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent z-10"></div>
           {shop.banner ? (
             <img src={shop.banner} alt={shop.shopName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -110,25 +110,25 @@ export default function ShopDetailsPage() {
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-3xl md:text-5xl font-extrabold text-white">{shop.shopName}</h1>
+                <h1 className="text-3xl md:text-5xl font-extrabold text-zinc-900 dark:text-white">{shop.shopName}</h1>
                 {shop.isVerified && (
-                  <span className="bg-blue-500/90 backdrop-blur px-3 py-1 text-xs font-bold text-white rounded-full flex items-center gap-1 shadow-lg border border-blue-400/30">
+                  <span className="bg-blue-500/90 backdrop-blur px-3 py-1 text-xs font-bold text-zinc-900 dark:text-white rounded-full flex items-center gap-1 shadow-lg border border-blue-400/30">
                     <ShieldCheck className="w-3.5 h-3.5" /> Verified
                   </span>
                 )}
               </div>
-              <p className="text-white/80 text-lg max-w-2xl mb-4 line-clamp-2 md:line-clamp-none">
+              <p className="text-zinc-800 dark:text-white/90 text-lg max-w-2xl mb-4 line-clamp-2 md:line-clamp-none">
                 {shop.description || "Premium local seller offering high-quality products."}
               </p>
               <div className="flex flex-wrap items-center gap-4 text-sm font-medium">
-                <span className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 text-white">
+                <span className="flex items-center gap-1.5 bg-black/10 backdrop-blur-md px-4 py-2 rounded-full border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white">
                   <MapPin className="w-4 h-4 text-primary" /> {shop.city || "Local"}
                 </span>
-                <span className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 text-white">
+                <span className="flex items-center gap-1.5 bg-black/10 backdrop-blur-md px-4 py-2 rounded-full border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white">
                   <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" /> {shop.rating?.toFixed(1) || "New"}
                 </span>
                 {shop.deliveryOptions?.pickup && (
-                  <span className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 text-white">
+                  <span className="flex items-center gap-1.5 bg-black/10 backdrop-blur-md px-4 py-2 rounded-full border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white">
                     <Clock className="w-4 h-4 text-green-400" /> Pickup Available
                   </span>
                 )}
@@ -140,7 +140,7 @@ export default function ShopDetailsPage() {
 
       {/* Shop Products Section */}
       <div className="w-full max-w-7xl mx-auto px-4 md:px-6 flex-1">
-        <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
+        <div className="flex items-center justify-between mb-8 border-b border-zinc-200 dark:border-white/10 pb-4">
           <h2 className="text-3xl font-bold">Shop Products</h2>
           <span className="text-muted-foreground bg-secondary px-4 py-1.5 rounded-full text-sm font-medium">
             {products.length} Items
@@ -148,7 +148,7 @@ export default function ShopDetailsPage() {
         </div>
 
         {products.length === 0 ? (
-          <div className="text-center py-20 bg-card border border-white/5 rounded-3xl">
+          <div className="text-center py-20 bg-card border border-zinc-200 dark:border-white/10 rounded-3xl">
             <ShoppingBag className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-30" />
             <h3 className="text-2xl font-bold mb-2">No products yet</h3>
             <p className="text-muted-foreground">This shop hasn't listed any products.</p>
@@ -161,7 +161,7 @@ export default function ShopDetailsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="group relative bg-card/40 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(139,92,246,0.1)] hover:-translate-y-1 flex flex-col"
+                className="group relative bg-card/40 backdrop-blur-sm border border-zinc-200 dark:border-white/10 rounded-2xl overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(139,92,246,0.1)] hover:-translate-y-1 flex flex-col"
               >
                 <div className="aspect-square relative overflow-hidden bg-secondary">
                   <img 
@@ -169,18 +169,18 @@ export default function ShopDetailsPage() {
                     alt={product.name} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3 bg-background/80 backdrop-blur-md px-2.5 py-1 rounded-md text-xs font-bold text-white flex items-center gap-1 border border-white/10">
+                  <div className="absolute top-3 left-3 bg-background/80 backdrop-blur-md px-2.5 py-1 rounded-md text-xs font-bold text-zinc-900 dark:text-white flex items-center gap-1 border border-zinc-200 dark:border-white/10">
                     <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
                     {product.rating?.toFixed(1) || "New"}
                   </div>
                   {product.stock <= 5 && product.stock > 0 && (
-                     <div className="absolute top-3 right-3 bg-orange-500/90 backdrop-blur-md px-2 py-1 rounded-md text-xs font-bold text-white border border-orange-400/30">
+                     <div className="absolute top-3 right-3 bg-orange-500/90 backdrop-blur-md px-2 py-1 rounded-md text-xs font-bold text-zinc-900 dark:text-white border border-orange-400/30">
                        Only {product.stock} left
                      </div>
                   )}
                   {product.stock === 0 && (
-                     <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-sm">
-                       <span className="text-white font-bold text-lg rotate-12 bg-red-500 px-6 py-1 border-2 border-white border-dashed">OUT OF STOCK</span>
+                     <div className="absolute inset-0 bg-white/60 flex items-center justify-center backdrop-blur-sm">
+                       <span className="text-zinc-900 dark:text-white font-bold text-lg rotate-12 bg-red-500 px-6 py-1 border-2 border-white border-dashed">OUT OF STOCK</span>
                      </div>
                   )}
                 </div>
@@ -191,7 +191,7 @@ export default function ShopDetailsPage() {
                   <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">{product.description}</p>
                   
                   <div className="mt-auto flex items-center justify-between">
-                    <span className="text-2xl font-black text-white">${product.price.toFixed(2)}</span>
+                    <span className="text-2xl font-black text-zinc-900 dark:text-white">${product.price.toFixed(2)}</span>
                     <button 
                       disabled={product.stock === 0}
                       onClick={() => {
@@ -207,7 +207,7 @@ export default function ShopDetailsPage() {
                       className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
                         product.stock === 0 
                           ? "bg-secondary text-muted-foreground cursor-not-allowed" 
-                          : "bg-primary/20 text-primary hover:bg-primary hover:text-white hover:scale-110 active:scale-95"
+                          : "bg-primary/20 text-primary hover:bg-primary hover:text-zinc-900 dark:text-white hover:scale-110 active:scale-95"
                       }`}
                     >
                       <ShoppingBag className="w-5 h-5" />

@@ -29,11 +29,11 @@ export default function ForSellers() {
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="relative w-full max-w-lg aspect-[4/3] bg-[#0a0a0a] rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(16,185,129,0.15)] overflow-hidden"
+              className="relative w-full max-w-lg aspect-[4/3] bg-[#0a0a0a] rounded-3xl border border-zinc-200 dark:border-white/10 shadow-[0_0_50px_rgba(16,185,129,0.15)] overflow-hidden"
               style={{ transformPerspective: "1000px" }}
             >
               {/* Mockup Header */}
-              <div className="h-12 border-b border-white/10 flex items-center px-4 gap-2 bg-white/5">
+              <div className="h-12 border-b border-zinc-200 dark:border-white/10 flex items-center px-4 gap-2 bg-black/5">
                 <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
                 <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
@@ -41,16 +41,16 @@ export default function ForSellers() {
               
               {/* Mockup Body */}
               <div className="p-6 grid grid-cols-2 gap-4">
-                <div className="col-span-2 h-24 bg-white/5 rounded-xl border border-white/10 p-4 flex flex-col justify-center">
-                  <div className="w-24 h-3 bg-white/10 rounded-full mb-3"></div>
+                <div className="col-span-2 h-24 bg-black/5 rounded-xl border border-zinc-200 dark:border-white/10 p-4 flex flex-col justify-center">
+                  <div className="w-24 h-3 bg-black/10 rounded-full mb-3"></div>
                   <div className="w-48 h-8 bg-emerald-500/20 rounded-md"></div>
                 </div>
-                <div className="h-32 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center">
+                <div className="h-32 bg-black/5 rounded-xl border border-zinc-200 dark:border-white/10 flex items-center justify-center">
                   <div className="w-12 h-12 rounded-full border-4 border-emerald-500/30 border-t-emerald-500"></div>
                 </div>
-                <div className="h-32 bg-white/5 rounded-xl border border-white/10 flex flex-col gap-3 p-4">
-                  <div className="w-full h-3 bg-white/10 rounded-full"></div>
-                  <div className="w-3/4 h-3 bg-white/10 rounded-full"></div>
+                <div className="h-32 bg-black/5 rounded-xl border border-zinc-200 dark:border-white/10 flex flex-col gap-3 p-4">
+                  <div className="w-full h-3 bg-black/10 rounded-full"></div>
+                  <div className="w-3/4 h-3 bg-black/10 rounded-full"></div>
                   <div className="w-1/2 h-3 bg-emerald-500/50 rounded-full mt-auto"></div>
                 </div>
               </div>
@@ -62,14 +62,14 @@ export default function ForSellers() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="absolute -right-4 top-1/4 bg-white/10 backdrop-blur-xl border border-white/20 p-4 rounded-2xl shadow-xl flex items-center gap-4"
+              className="absolute -right-4 top-1/4 bg-black/10 backdrop-blur-xl border border-zinc-300 dark:border-white/20 p-4 rounded-2xl shadow-xl flex items-center gap-4"
             >
               <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center">
-                <BellRing className="w-5 h-5 text-white" />
+                <BellRing className="w-5 h-5 text-zinc-900 dark:text-white" />
               </div>
               <div>
-                <p className="text-sm font-bold text-white">New Order!</p>
-                <p className="text-xs text-white/60">₹450 via PayLater</p>
+                <p className="text-sm font-bold text-zinc-900 dark:text-white">New Order!</p>
+                <p className="text-xs text-zinc-600 dark:text-white/60">₹450 via PayLater</p>
               </div>
             </motion.div>
           </div>
@@ -88,7 +88,7 @@ export default function ForSellers() {
                   exponentially.
                 </span>
               </h2>
-              <p className="text-xl text-white/60 mb-10">
+              <p className="text-xl text-zinc-600 dark:text-white/60 mb-10">
                 Join thousands of local shopkeepers who have digitized their inventory and expanded their reach with MarQet.
               </p>
             </motion.div>
@@ -108,7 +108,7 @@ export default function ForSellers() {
                     <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
                       <Icon className="w-5 h-5 text-emerald-400" />
                     </div>
-                    <span className="text-lg text-white/80 font-medium">{feature.text}</span>
+                    <span className="text-lg text-zinc-800 dark:text-white/90 font-medium">{feature.text}</span>
                   </motion.div>
                 );
               })}
@@ -120,7 +120,7 @@ export default function ForSellers() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <Link href="/register?role=shopkeeper" className="inline-block px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+              <Link href="/register?role=shopkeeper" className="inline-block px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-zinc-900 dark:text-white font-bold rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(16,185,129,0.3)]">
                 Start Selling Today
               </Link>
             </motion.div>

@@ -27,7 +27,7 @@ export default function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={toggleCart}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-white/60 backdrop-blur-sm z-50"
           />
 
           {/* Drawer */}
@@ -36,10 +36,10 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-background border-l border-white/10 z-50 flex flex-col shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-background border-l border-zinc-200 dark:border-white/10 z-50 flex flex-col shadow-2xl"
           >
             {/* Header */}
-            <div className="p-6 border-b border-white/10 flex items-center justify-between">
+            <div className="p-6 border-b border-zinc-200 dark:border-white/10 flex items-center justify-between">
               <h2 className="text-xl font-bold flex items-center gap-2">
                 <ShoppingBag className="w-5 h-5" />
                 Your Cart
@@ -90,7 +90,7 @@ export default function CartDrawer() {
                       </div>
                       
                       <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center gap-3 bg-secondary/50 rounded-lg p-1 border border-white/5">
+                        <div className="flex items-center gap-3 bg-secondary/50 rounded-lg p-1 border border-zinc-200 dark:border-white/10">
                           <button 
                             onClick={() => updateQuantity(item._id, item.quantity - 1)}
                             className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-background transition-colors"
@@ -117,7 +117,7 @@ export default function CartDrawer() {
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="p-6 border-t border-white/10 bg-card/50">
+              <div className="p-6 border-t border-zinc-200 dark:border-white/10 bg-card/50">
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between text-sm text-muted-foreground">
                     <span>Subtotal</span>
@@ -127,7 +127,7 @@ export default function CartDrawer() {
                     <span>Shipping</span>
                     <span>Calculated at checkout</span>
                   </div>
-                  <div className="h-[1px] bg-white/10 w-full my-2"></div>
+                  <div className="h-[1px] bg-black/10 w-full my-2"></div>
                   <div className="flex justify-between text-lg font-bold text-foreground">
                     <span>Total</span>
                     <span>${totalPrice().toFixed(2)}</span>
@@ -136,7 +136,7 @@ export default function CartDrawer() {
                 
                 <button 
                   onClick={() => { toggleCart(); router.push('/checkout'); }}
-                  className="w-full py-4 px-6 bg-primary text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors group"
+                  className="w-full py-4 px-6 bg-primary text-zinc-900 dark:text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors group"
                 >
                   Proceed to Checkout
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

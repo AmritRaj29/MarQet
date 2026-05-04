@@ -120,7 +120,7 @@ export default function SparklesBackground() {
         className="absolute inset-0 w-full h-full opacity-60"
       />
       {/* Radial gradient mask to fade out edges if needed, or to make it look spherical */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(15,17,26,0.8)_100%)]"></div>
     </div>
   );
 }

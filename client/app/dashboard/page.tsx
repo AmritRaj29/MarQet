@@ -78,7 +78,7 @@ export default function DashboardOverview() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="p-6 rounded-2xl bg-card border border-white/5 shadow-sm hover:border-emerald-500/30 transition-colors"
+              className="p-6 rounded-2xl bg-card border border-zinc-200 dark:border-white/10 shadow-sm hover:border-emerald-500/30 transition-colors"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-500">
@@ -97,12 +97,12 @@ export default function DashboardOverview() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Add Product Form */}
-        <div className="lg:col-span-2 p-8 rounded-3xl bg-card/40 backdrop-blur-xl border border-white/5">
+        <div className="lg:col-span-2 p-8 rounded-3xl bg-card/40 backdrop-blur-xl border border-zinc-200 dark:border-white/10">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500">
               <Plus className="w-5 h-5" />
             </div>
-            <h2 className="text-xl font-bold text-white">Add New Product</h2>
+            <h2 className="text-xl font-bold text-zinc-900 dark:text-white">Add New Product</h2>
           </div>
 
           {success && (
@@ -115,36 +115,36 @@ export default function DashboardOverview() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-muted-foreground">Product Name</label>
-                <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-secondary/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="e.g. Organic Apples" />
+                <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-secondary/50 border border-zinc-200 dark:border-white/10 rounded-xl p-3 text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="e.g. Organic Apples" />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-muted-foreground">Category</label>
-                <input required type="text" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-secondary/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="e.g. Groceries" />
+                <input required type="text" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-secondary/50 border border-zinc-200 dark:border-white/10 rounded-xl p-3 text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="e.g. Groceries" />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-muted-foreground">Price ($)</label>
-                <input required type="number" step="0.01" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="w-full bg-secondary/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="0.00" />
+                <input required type="number" step="0.01" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="w-full bg-secondary/50 border border-zinc-200 dark:border-white/10 rounded-xl p-3 text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="0.00" />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-muted-foreground">Stock Quantity</label>
-                <input required type="number" value={formData.stock} onChange={e => setFormData({...formData, stock: e.target.value})} className="w-full bg-secondary/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="100" />
+                <input required type="number" value={formData.stock} onChange={e => setFormData({...formData, stock: e.target.value})} className="w-full bg-secondary/50 border border-zinc-200 dark:border-white/10 rounded-xl p-3 text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="100" />
               </div>
             </div>
             
             <div className="space-y-2">
               <label className="text-sm font-medium text-muted-foreground">Description</label>
-              <textarea required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows={3} className="w-full bg-secondary/50 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Describe your product..."></textarea>
+              <textarea required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows={3} className="w-full bg-secondary/50 border border-zinc-200 dark:border-white/10 rounded-xl p-3 text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Describe your product..."></textarea>
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-muted-foreground">Image URLs (comma separated)</label>
               <div className="relative">
                 <Upload className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input required type="text" value={formData.images} onChange={e => setFormData({...formData, images: e.target.value})} className="w-full bg-secondary/50 border border-white/10 rounded-xl p-3 pl-10 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="https://image1.jpg, https://image2.jpg" />
+                <input required type="text" value={formData.images} onChange={e => setFormData({...formData, images: e.target.value})} className="w-full bg-secondary/50 border border-zinc-200 dark:border-white/10 rounded-xl p-3 pl-10 text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="https://image1.jpg, https://image2.jpg" />
               </div>
             </div>
 
-            <button disabled={loading} type="submit" className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-colors shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+            <button disabled={loading} type="submit" className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-zinc-900 dark:text-white font-bold rounded-xl transition-colors shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
               {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Plus className="w-5 h-5" /> Publish Product</>}
             </button>
           </form>

@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Please add a password'],
+      // Password is no longer required as Google/OTP users might not have one
       minlength: 6,
       select: false,
     },
@@ -31,6 +31,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['user', 'shopkeeper'],
       default: 'user',
+    },
+    authProvider: {
+      type: String,
+      enum: ['local', 'google', 'phone'],
+      default: 'local',
+    },
+    googleId: {
+      type: String,
+      sparse: true,
+      unique: true,
     },
     avatar: String,
     location: {

@@ -27,7 +27,7 @@ export default function LoginGateway() {
           <Link href="/" className="inline-block mb-6">
             <Logo className="w-16 h-16" textClassName="text-5xl" />
           </Link>
-          <h1 className="text-3xl md:text-5xl font-black text-white mb-4">Welcome to MarQet</h1>
+          <h1 className="text-3xl md:text-5xl font-black text-zinc-900 dark:text-white mb-4">Welcome to MarQet</h1>
           <p className="text-muted-foreground text-lg max-w-lg mx-auto">
             Choose your portal to continue. Are you shopping for local goods or managing your business?
           </p>
@@ -44,7 +44,7 @@ export default function LoginGateway() {
               <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                 <UserIcon className="w-10 h-10 text-primary" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">Customer</h2>
+              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-3">Customer</h2>
               <p className="text-muted-foreground text-sm mb-6 flex-1">
                 Discover nearby shops, browse premium products, and manage your orders.
               </p>
@@ -64,7 +64,7 @@ export default function LoginGateway() {
               <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
                 <Store className="w-10 h-10 text-emerald-500" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">Shopkeeper</h2>
+              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-3">Shopkeeper</h2>
               <p className="text-muted-foreground text-sm mb-6 flex-1">
                 Manage your storefront, upload products, and track your business earnings.
               </p>
@@ -77,7 +77,7 @@ export default function LoginGateway() {
 
         <div className="mt-12 text-center text-sm text-muted-foreground relative z-10">
           Don't have an account yet?{" "}
-          <Link href="/register" className="text-white hover:underline font-medium">
+          <Link href="/register" className="text-zinc-900 dark:text-white hover:underline font-medium">
             Create an account
           </Link>
         </div>

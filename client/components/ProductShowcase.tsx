@@ -40,23 +40,23 @@ function TiltCard({ product }: { product: any }) {
         mouseY.set(0);
       }}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className="w-[300px] h-[400px] rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm p-4 flex flex-col justify-between shrink-0 relative cursor-pointer"
+      className="w-[300px] h-[400px] rounded-3xl bg-black/5 dark:bg-white/5 border border-zinc-200 dark:border-white/10 backdrop-blur-sm p-4 flex flex-col justify-between shrink-0 relative cursor-pointer"
     >
       <div style={{ transform: "translateZ(50px)" }} className="relative h-48 w-full rounded-2xl overflow-hidden mb-4 shadow-2xl">
         <img src={product.img} alt={product.name} className="w-full h-full object-cover" />
         {product.isCheapest && (
-          <div className="absolute top-2 left-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
+          <div className="absolute top-2 left-2 bg-gradient-to-r from-teal-400 to-cyan-400 text-zinc-900 dark:text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
             <Star className="w-3 h-3 fill-white" /> Cheapest
           </div>
         )}
       </div>
       
       <div style={{ transform: "translateZ(30px)" }}>
-        <h3 className="text-xl font-bold text-white mb-1">{product.name}</h3>
-        <p className="text-white/60 text-sm mb-4">{product.shop}</p>
+        <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-1">{product.name}</h3>
+        <p className="text-zinc-600 dark:text-white/60 text-sm mb-4">{product.shop}</p>
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-primary">{product.price}</span>
-          <button className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white text-sm font-semibold transition-colors">
+          <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-primary">{product.price}</span>
+          <button className="px-4 py-2 bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 rounded-full text-zinc-900 dark:text-white text-sm font-semibold transition-colors">
             Add to Cart
           </button>
         </div>
@@ -81,7 +81,7 @@ export default function ProductShowcase() {
         scrollTrigger: {
           trigger: containerRef.current,
           pin: true,
-          start: "top 80%",
+          start: "top top",
           scrub: 0.1,
           end: () => `+=${scrollWidth}`,
         },
@@ -92,16 +92,16 @@ export default function ProductShowcase() {
   }, []);
 
   return (
-    <section ref={containerRef} className="py-24 bg-background relative overflow-hidden">
+    <section ref={containerRef} className="min-h-screen bg-background relative overflow-hidden pt-32">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="w-full">
         <div className="container mx-auto px-6 mb-12">
           <h2 className="text-5xl md:text-7xl font-black tracking-tight">
-            Discover <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-primary">Essentials.</span>
+            Discover <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-primary">Essentials.</span>
           </h2>
-          <p className="text-xl text-white/60 max-w-2xl mt-4">
+          <p className="text-xl text-zinc-600 dark:text-white/60 max-w-2xl mt-4">
             Scroll to explore exactly what's available right now from shops down your street.
           </p>
         </div>

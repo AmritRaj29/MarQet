@@ -24,8 +24,7 @@ export default function RegisterPage() {
 
     const payload = {
       ...formData,
-      role,
-      location: role === "shopkeeper" && formData.lat && formData.lng ? { lat: parseFloat(formData.lat), lng: parseFloat(formData.lng) } : undefined
+      role
     };
 
     try {
@@ -45,7 +44,7 @@ export default function RegisterPage() {
         role: data.role,
       }, data.token);
       
-      router.push("/");
+      router.push(role === "shopkeeper" ? "/dashboard" : "/home");
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -73,7 +72,7 @@ export default function RegisterPage() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="w-full max-w-lg p-8 relative z-10"
       >
-        <div className="backdrop-blur-2xl bg-card/40 border border-white/10 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
+        <div className="backdrop-blur-2xl bg-card/40 border border-zinc-200 dark:border-white/10 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
           
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none rounded-[2rem]" />
 
@@ -88,13 +87,13 @@ export default function RegisterPage() {
           <div className="flex p-1 bg-secondary/50 rounded-2xl mb-8 relative z-10">
             <button
               type="button" onClick={() => setRole("user")}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium rounded-xl transition-all relative z-10 ${role === "user" ? "text-white" : "text-muted-foreground hover:text-white"}`}
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium rounded-xl transition-all relative z-10 ${role === "user" ? "text-zinc-900 dark:text-white" : "text-muted-foreground hover:text-zinc-900 dark:text-white"}`}
             >
               <UserIcon className="w-4 h-4" /> Customer
             </button>
             <button
               type="button" onClick={() => setRole("shopkeeper")}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium rounded-xl transition-all relative z-10 ${role === "shopkeeper" ? "text-white" : "text-muted-foreground hover:text-white"}`}
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium rounded-xl transition-all relative z-10 ${role === "shopkeeper" ? "text-zinc-900 dark:text-white" : "text-muted-foreground hover:text-zinc-900 dark:text-white"}`}
             >
               <Store className="w-4 h-4" /> Shopkeeper
             </button>
@@ -129,7 +128,7 @@ export default function RegisterPage() {
                 <label className="text-xs font-medium text-foreground ml-1">{role === "shopkeeper" ? "Shop Name" : "Full Name"}</label>
                 <div className="relative group">
                   <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground" placeholder={role === "shopkeeper" ? "Tech Haven" : "John Doe"} />
+                  <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-zinc-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground" placeholder={role === "shopkeeper" ? "Tech Haven" : "John Doe"} />
                 </div>
               </div>
 
@@ -137,7 +136,7 @@ export default function RegisterPage() {
                 <label className="text-xs font-medium text-foreground ml-1">Email</label>
                 <div className="relative group">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground" placeholder="you@example.com" />
+                  <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-zinc-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground" placeholder="you@example.com" />
                 </div>
               </div>
 
@@ -145,7 +144,7 @@ export default function RegisterPage() {
                 <label className="text-xs font-medium text-foreground ml-1">Phone</label>
                 <div className="relative group">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground" placeholder="+1 234 567 890" />
+                  <input type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-zinc-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground" placeholder="+1 234 567 890" />
                 </div>
               </div>
 
@@ -153,7 +152,7 @@ export default function RegisterPage() {
                 <label className="text-xs font-medium text-foreground ml-1">Password</label>
                 <div className="relative group">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input type="password" required value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground" placeholder="••••••••" />
+                  <input type="password" required value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-zinc-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground" placeholder="••••••••" />
                 </div>
               </div>
 
@@ -165,32 +164,16 @@ export default function RegisterPage() {
                     exit={{ opacity: 0, height: 0, y: -10 }}
                     className="col-span-2 space-y-4 pt-2"
                   >
-                    <div className="h-[1px] bg-white/10 w-full mb-2"></div>
+                    <div className="h-[1px] bg-black/10 w-full mb-2"></div>
                     
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-foreground ml-1">Shop Address</label>
                       <div className="relative group">
                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-green-500 transition-colors" />
-                        <input type="text" required value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all text-foreground" placeholder="123 Market St, New York" />
+                        <input type="text" required value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-zinc-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all text-foreground" placeholder="123 Market St, New York" />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <label className="text-xs font-medium text-foreground ml-1">Latitude</label>
-                        <div className="relative group">
-                          <Navigation className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-green-500 transition-colors" />
-                          <input type="text" required value={formData.lat} onChange={(e) => setFormData({...formData, lat: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all text-foreground" placeholder="40.7128" />
-                        </div>
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-xs font-medium text-foreground ml-1">Longitude</label>
-                        <div className="relative group">
-                          <Navigation className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-green-500 transition-colors" />
-                          <input type="text" required value={formData.lng} onChange={(e) => setFormData({...formData, lng: e.target.value})} className="w-full pl-10 pr-4 py-2.5 text-sm bg-black/20 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all text-foreground" placeholder="-74.0060" />
-                        </div>
-                      </div>
-                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -199,7 +182,7 @@ export default function RegisterPage() {
             <motion.button 
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
               type="submit" disabled={isLoading}
-              className="w-full py-3.5 mt-4 px-4 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3.5 mt-4 px-4 text-zinc-900 dark:text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
                 backgroundColor: role === "user" ? "var(--primary)" : "#10b981",
                 boxShadow: role === "user" ? "0 0 20px rgba(139,92,246,0.4)" : "0 0 20px rgba(16,185,129,0.4)",

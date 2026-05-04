@@ -49,7 +49,7 @@ export default function ShopMap({ location, shops }: ShopMapProps) {
   const zoom = location ? 13 : 5;
 
   return (
-    <div className="w-full h-full rounded-3xl overflow-hidden border border-white/10 relative z-0">
+    <div className="w-full h-full rounded-3xl overflow-hidden border border-zinc-200 dark:border-white/10 relative z-0">
       <MapContainer 
         center={center} 
         zoom={zoom} 
@@ -68,7 +68,7 @@ export default function ShopMap({ location, shops }: ShopMapProps) {
         {location && (
           <Marker position={[location.lat, location.lng]} icon={userIcon}>
             <Popup className="custom-popup">
-              <div className="font-bold text-black">Your Location</div>
+              <div className="font-bold text-zinc-900">Your Location</div>
             </Popup>
           </Marker>
         )}
@@ -95,7 +95,7 @@ export default function ShopMap({ location, shops }: ShopMapProps) {
                        <Store className="w-8 h-8 text-gray-400" />
                     </div>
                   )}
-                  <h3 className="font-bold text-lg text-black leading-tight">{shop.shopName}</h3>
+                  <h3 className="font-bold text-lg text-zinc-900 leading-tight">{shop.shopName}</h3>
                   <div className="flex items-center gap-1 text-sm text-gray-600">
                     <MapPin className="w-3 h-3" />
                     <span>{shop.city || "Local"}</span>
@@ -120,16 +120,12 @@ export default function ShopMap({ location, shops }: ShopMapProps) {
         .leaflet-container {
           background-color: #0f111a;
         }
-        .leaflet-popup-content-wrapper {
-          border-radius: 0.75rem;
-          overflow: hidden;
-          padding: 0;
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+          background-color: white;
+          color: #18181b; /* zinc-900 */
         }
         .leaflet-popup-content {
           margin: 12px;
-        }
-        .leaflet-popup-tip {
-          background: white;
         }
       `}</style>
     </div>

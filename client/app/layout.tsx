@@ -9,6 +9,8 @@ import ScrollProgress from "@/components/ScrollProgress";
 
 const inter = Inter({ subsets: ["latin"] });
 
+
+
 export const metadata: Metadata = {
   title: "MarQet - Hyperlocal Marketplace",
   description: "Your local marketplace for everything",
@@ -20,15 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${inter.className} antialiased selection:bg-primary selection:text-primary-foreground`}>
-        <SmoothScroll>
-          <CustomCursor />
-          <NoiseOverlay />
-          <ScrollProgress />
-          {children}
-          <CartDrawer />
-        </SmoothScroll>
+          <SmoothScroll>
+            <CustomCursor />
+            <NoiseOverlay />
+            <ScrollProgress />
+            {children}
+            <CartDrawer />
+          </SmoothScroll>
       </body>
     </html>
   );

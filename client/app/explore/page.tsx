@@ -61,10 +61,10 @@ export default function ExploreShops() {
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
                 placeholder="Search shops..." 
-                className="w-full pl-10 pr-4 py-3 bg-card border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all shadow-sm"
+                className="w-full pl-10 pr-4 py-3 bg-card border border-zinc-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all shadow-sm"
               />
             </div>
-            <button className="p-3 bg-secondary border border-white/5 rounded-xl hover:bg-secondary/80 transition-colors">
+            <button className="p-3 bg-secondary border border-zinc-200 dark:border-white/10 rounded-xl hover:bg-secondary/80 transition-colors">
               <Filter className="w-5 h-5 text-foreground" />
             </button>
           </div>
@@ -91,7 +91,7 @@ export default function ExploreShops() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="group relative bg-card/60 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_10px_30px_rgba(139,92,246,0.15)] hover:-translate-y-1 flex flex-col h-full"
+                  className="group relative bg-card/60 backdrop-blur-md border border-zinc-200 dark:border-white/10 rounded-3xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_10px_30px_rgba(139,92,246,0.15)] hover:-translate-y-1 flex flex-col h-full"
                 >
                   <div className="h-48 relative overflow-hidden bg-secondary">
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent z-10"></div>
@@ -108,7 +108,7 @@ export default function ExploreShops() {
                     )}
                     
                     <div className="absolute top-3 right-3 z-20">
-                      <span className="px-2.5 py-1 bg-background/80 backdrop-blur text-white text-xs font-bold rounded-full shadow-md border border-white/10 flex items-center gap-1">
+                      <span className="px-2.5 py-1 bg-background/80 backdrop-blur text-zinc-900 dark:text-white text-xs font-bold rounded-full shadow-md border border-zinc-200 dark:border-white/10 flex items-center gap-1">
                         <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
                         {shop.rating?.toFixed(1) || "New"}
                       </span>
@@ -122,7 +122,7 @@ export default function ExploreShops() {
                   </div>
                   
                   <div className="p-5 pt-8 flex-1 flex flex-col">
-                    <h3 className="font-bold text-xl text-white mb-1 line-clamp-1">{shop.shopName}</h3>
+                    <h3 className="font-bold text-xl text-zinc-900 dark:text-white mb-1 line-clamp-1">{shop.shopName}</h3>
                     <div className="flex items-center gap-1.5 text-primary font-medium text-xs mb-3">
                       <MapPin className="w-3.5 h-3.5" />
                       {shop.city || "Local Area"}
@@ -130,7 +130,7 @@ export default function ExploreShops() {
                     <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
                       {shop.description || "Premium quality products delivered to you."}
                     </p>
-                    <div className="mt-auto pt-4 border-t border-white/5 flex items-center text-sm font-bold text-white group-hover:text-primary transition-colors">
+                    <div className="mt-auto pt-4 border-t border-zinc-200 dark:border-white/10 flex items-center text-sm font-bold text-zinc-900 dark:text-white group-hover:text-primary transition-colors">
                       Enter Storefront &rarr;
                     </div>
                   </div>

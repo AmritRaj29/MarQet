@@ -20,7 +20,7 @@ function FloatingObjects() {
         <mesh position={[-1, 1, 0]} rotation={[0.5, 0.5, 0]}>
           <boxGeometry args={[1.5, 1.5, 1.5]} />
           <meshPhysicalMaterial 
-            color="#ec4899" 
+            color="#2dd4bf" 
             roughness={0.2} 
             metalness={0.8} 
             transmission={0.5} 
@@ -34,7 +34,7 @@ function FloatingObjects() {
         <mesh position={[1.5, -0.5, 1]} rotation={[-0.5, 0.5, 0.5]}>
           <octahedronGeometry args={[1]} />
           <MeshDistortMaterial 
-            color="#8b5cf6" 
+            color="#22d3ee" 
             distort={0.4} 
             speed={2} 
             roughness={0.2} 
@@ -47,7 +47,7 @@ function FloatingObjects() {
         <mesh position={[0, -1.5, -1]} rotation={[0.5, -0.5, 0]}>
           <torusGeometry args={[0.8, 0.2, 16, 100]} />
           <meshPhysicalMaterial 
-            color="#3b82f6" 
+            color="#34d399" 
             roughness={0.1} 
             metalness={0.9} 
             clearcoat={1}
@@ -64,7 +64,7 @@ export default function HeroScene() {
       <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#ec4899" />
+        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#2dd4bf" />
         
         <PresentationControls 
           global 

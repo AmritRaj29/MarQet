@@ -3,7 +3,7 @@
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Package, ShoppingCart, Settings } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingCart, Settings, Store } from "lucide-react";
 import Logo from "@/components/Logo";
 
 export default function DashboardLayout({
@@ -15,6 +15,7 @@ export default function DashboardLayout({
 
   const links = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
+    { name: "My Shop", href: "/dashboard/shop", icon: Store },
     { name: "Products", href: "/dashboard/products", icon: Package },
     { name: "Orders", href: "/dashboard/orders", icon: ShoppingCart },
     { name: "Settings", href: "/dashboard/settings", icon: Settings },
@@ -24,8 +25,8 @@ export default function DashboardLayout({
     <ProtectedRoute requireSeller={true}>
       <div className="min-h-screen bg-background flex flex-col md:flex-row">
         {/* Sidebar */}
-        <aside className="w-full md:w-64 bg-card border-r border-white/10 flex flex-col">
-          <div className="p-6 border-b border-white/10">
+        <aside className="w-full md:w-64 bg-card border-r border-zinc-200 dark:border-white/10 flex flex-col">
+          <div className="p-6 border-b border-zinc-200 dark:border-white/10">
             <Link href="/">
               <Logo />
             </Link>

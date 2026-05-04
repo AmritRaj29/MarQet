@@ -5,10 +5,10 @@ import { ShoppingCart, Laptop, Shirt, Wrench, Utensils, BookOpen, Coffee, Camera
 
 const categories = [
   { name: "Electronics", icon: Laptop, color: "bg-blue-500/10 text-blue-500" },
-  { name: "Fashion", icon: Shirt, color: "bg-pink-500/10 text-pink-500" },
+  { name: "Fashion", icon: Shirt, color: "bg-teal-400/10 text-teal-400" },
   { name: "Local Services", icon: Wrench, color: "bg-orange-500/10 text-orange-500" },
   { name: "Food & Dining", icon: Utensils, color: "bg-green-500/10 text-green-500" },
-  { name: "Books", icon: BookOpen, color: "bg-purple-500/10 text-purple-500" },
+  { name: "Books", icon: BookOpen, color: "bg-cyan-400/10 text-cyan-400" },
   { name: "Cafe", icon: Coffee, color: "bg-yellow-500/10 text-yellow-500" },
   { name: "Photography", icon: Camera, color: "bg-teal-500/10 text-teal-500" },
   { name: "Groceries", icon: ShoppingCart, color: "bg-red-500/10 text-red-500" },
@@ -29,7 +29,7 @@ export default function FeaturedCategories() {
           <p className="text-xl text-muted-foreground font-light">Explore a world of local commerce, perfectly categorized for your convenience.</p>
         </motion.div>
         <motion.button 
-          className="mt-6 md:mt-0 px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-colors text-sm font-medium"
+          className="mt-6 md:mt-0 px-6 py-3 rounded-full border border-zinc-200 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-sm font-medium"
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -50,8 +50,8 @@ export default function FeaturedCategories() {
             className="group relative cursor-pointer"
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${cat.color.replace('text', 'from')} to-transparent rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500`}></div>
-            <div className="h-full flex flex-col items-center justify-center p-8 rounded-3xl border border-white/5 bg-secondary/20 backdrop-blur-sm hover:border-white/20 transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-secondary/40">
-              <div className={`p-5 rounded-2xl mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 bg-black/40 border border-white/5 ${cat.color}`}>
+            <div className="h-full flex flex-col items-center justify-center p-8 rounded-3xl border border-zinc-200 dark:border-white/10 bg-secondary/20 backdrop-blur-sm hover:border-zinc-300 dark:border-white/20 transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-secondary/40">
+              <div className={`p-5 rounded-2xl mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 bg-white/40 border border-zinc-200 dark:border-white/10 ${cat.color}`}>
                 <cat.icon className="w-8 h-8" />
               </div>
               <h3 className="font-semibold text-foreground text-center text-lg">{cat.name}</h3>

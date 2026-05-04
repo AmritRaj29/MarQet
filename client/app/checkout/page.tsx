@@ -31,13 +31,13 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center pt-24">
         <Navbar />
-        <div className="text-center p-8 bg-card rounded-3xl border border-white/5 max-w-md w-full">
+        <div className="text-center p-8 bg-card rounded-3xl border border-zinc-200 dark:border-white/10 max-w-md w-full">
           <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
           <h1 className="text-3xl font-bold mb-2">Order Confirmed!</h1>
           <p className="text-muted-foreground mb-8">Thank you for supporting local businesses. Your order has been placed successfully.</p>
           <button 
             onClick={() => router.push("/explore")}
-            className="w-full py-4 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors"
+            className="w-full py-4 bg-primary text-zinc-900 dark:text-white rounded-xl font-medium hover:bg-primary/90 transition-colors"
           >
             Continue Shopping
           </button>
@@ -86,11 +86,11 @@ export default function CheckoutPage() {
         <h1 className="text-4xl font-extrabold mb-8">Checkout</h1>
 
         {items.length === 0 ? (
-          <div className="text-center py-20 bg-card rounded-3xl border border-white/5">
+          <div className="text-center py-20 bg-card rounded-3xl border border-zinc-200 dark:border-white/10">
             <p className="text-xl text-muted-foreground">Your cart is empty.</p>
             <button 
               onClick={() => router.push("/explore")}
-              className="mt-6 px-6 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors"
+              className="mt-6 px-6 py-3 bg-primary text-zinc-900 dark:text-white rounded-xl font-medium hover:bg-primary/90 transition-colors"
             >
               Go Shopping
             </button>
@@ -100,14 +100,14 @@ export default function CheckoutPage() {
             <div className="lg:col-span-2 space-y-6">
               
               {/* Delivery Mode */}
-              <div className="bg-card p-6 rounded-3xl border border-white/5">
+              <div className="bg-card p-6 rounded-3xl border border-zinc-200 dark:border-white/10">
                 <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                   <Truck className="w-5 h-5 text-primary" /> Delivery Method
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
                   <button 
                     onClick={() => setMode("pickup")}
-                    className={`p-4 rounded-2xl border-2 text-left transition-all ${mode === "pickup" ? "border-primary bg-primary/5" : "border-white/5 hover:border-white/10 bg-secondary/50"}`}
+                    className={`p-4 rounded-2xl border-2 text-left transition-all ${mode === "pickup" ? "border-primary bg-primary/5" : "border-zinc-200 dark:border-white/10 hover:border-zinc-200 dark:border-white/10 bg-secondary/50"}`}
                   >
                     <Store className={`w-6 h-6 mb-3 ${mode === "pickup" ? "text-primary" : "text-muted-foreground"}`} />
                     <h3 className="font-semibold text-foreground">Store Pickup</h3>
@@ -115,7 +115,7 @@ export default function CheckoutPage() {
                   </button>
                   <button 
                     onClick={() => setMode("delivery")}
-                    className={`p-4 rounded-2xl border-2 text-left transition-all ${mode === "delivery" ? "border-primary bg-primary/5" : "border-white/5 hover:border-white/10 bg-secondary/50"}`}
+                    className={`p-4 rounded-2xl border-2 text-left transition-all ${mode === "delivery" ? "border-primary bg-primary/5" : "border-zinc-200 dark:border-white/10 hover:border-zinc-200 dark:border-white/10 bg-secondary/50"}`}
                   >
                     <Truck className={`w-6 h-6 mb-3 ${mode === "delivery" ? "text-primary" : "text-muted-foreground"}`} />
                     <h3 className="font-semibold text-foreground">Local Delivery</h3>
@@ -132,7 +132,7 @@ export default function CheckoutPage() {
                         type="text" 
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 bg-black/20 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground"
+                        className="w-full pl-10 pr-4 py-3 bg-black/20 border border-zinc-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-foreground"
                         placeholder="123 Main St, Apt 4B"
                       />
                     </div>
@@ -141,19 +141,19 @@ export default function CheckoutPage() {
               </div>
 
               {/* Payment Method */}
-              <div className="bg-card p-6 rounded-3xl border border-white/5">
+              <div className="bg-card p-6 rounded-3xl border border-zinc-200 dark:border-white/10">
                 <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                   <CreditCard className="w-5 h-5 text-primary" /> Payment Method
                 </h2>
                 <div className="space-y-4">
-                  <label className={`flex items-center gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all ${paymentType === "cash_pickup" ? "border-primary bg-primary/5" : "border-white/5 bg-secondary/50"}`}>
+                  <label className={`flex items-center gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all ${paymentType === "cash_pickup" ? "border-primary bg-primary/5" : "border-zinc-200 dark:border-white/10 bg-secondary/50"}`}>
                     <input type="radio" name="payment" value="cash_pickup" checked={paymentType === "cash_pickup"} onChange={() => setPaymentType("cash_pickup")} className="w-5 h-5 accent-primary" />
                     <div>
                       <h3 className="font-semibold text-foreground">Pay on Pickup / Delivery</h3>
                       <p className="text-xs text-muted-foreground">Pay with cash when you receive your items</p>
                     </div>
                   </label>
-                  <label className={`flex items-center gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all ${paymentType === "upi" ? "border-primary bg-primary/5" : "border-white/5 bg-secondary/50"}`}>
+                  <label className={`flex items-center gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all ${paymentType === "upi" ? "border-primary bg-primary/5" : "border-zinc-200 dark:border-white/10 bg-secondary/50"}`}>
                     <input type="radio" name="payment" value="upi" checked={paymentType === "upi"} onChange={() => setPaymentType("upi")} className="w-5 h-5 accent-primary" />
                     <div>
                       <h3 className="font-semibold text-foreground">Pay Online (Mock)</h3>
@@ -166,7 +166,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Order Summary */}
-            <div className="bg-card p-6 rounded-3xl border border-white/5 h-fit sticky top-28">
+            <div className="bg-card p-6 rounded-3xl border border-zinc-200 dark:border-white/10 h-fit sticky top-28">
               <h2 className="text-xl font-bold mb-6">Order Summary</h2>
               <div className="space-y-4 mb-6 max-h-60 overflow-y-auto pr-2">
                 {items.map((item) => (
@@ -185,7 +185,7 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              <div className="space-y-3 pt-6 border-t border-white/10 mb-6">
+              <div className="space-y-3 pt-6 border-t border-zinc-200 dark:border-white/10 mb-6">
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>Subtotal</span>
                   <span>${totalPrice().toFixed(2)}</span>
@@ -203,7 +203,7 @@ export default function CheckoutPage() {
               <button 
                 onClick={handleCheckout}
                 disabled={loading || (mode === "delivery" && !address)}
-                className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-4 bg-primary text-zinc-900 dark:text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Processing..." : "Place Order"}
               </button>

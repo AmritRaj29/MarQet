@@ -122,9 +122,113 @@ const updateLocation = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Authenticate with Google (Mock)
+// @route   POST /api/auth/google
+// @access  Public
+const googleAuth = asyncHandler(async (req, res) => {
+  const { name, email, googleId, role } = req.body;
+
+  if (!email || !googleId) {
+    res.status(400);
+    throw new Error('Please provide Google credentials');
+  }
+
+  let user = await User.findOne({ email });
+
+  if (!user) {
+    // Create new user via Google
+    user = await User.create({
+      name: name || 'Google User',
+      email,
+      googleId,
+      phone: '0000000000', // Dummy phone for Google users
+      role: role || 'user',
+      authProvider: 'google',
+    });
+  } else if (!user.googleId) {
+    // Link Google to existing account
+    user.googleId = googleId;
+    user.authProvider = 'google';
+    await user.save();
+  }
+
+  const token = generateToken(user._id, user.role);
+  res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    token,
+  });
+});
+
+// @desc    Send OTP (Mock)
+// @route   POST /api/auth/send-otp
+// @access  Public
+const sendOtp = asyncHandler(async (req, res) => {
+  const { phone } = req.body;
+
+  if (!phone) {
+    res.status(400);
+    throw new Error('Please provide phone number');
+  }
+
+  // In a real app, integrate Twilio or Firebase SMS here.
+  console.log(`[MOCK] OTP 123456 sent to phone: ${phone}`);
+
+  res.json({ message: 'OTP sent successfully. Use 123456 to verify.' });
+});
+
+// @desc    Verify OTP and login (Mock)
+// @route   POST /api/auth/verify-otp
+// @access  Public
+const verifyOtp = asyncHandler(async (req, res) => {
+  const { phone, otp, role, name, email } = req.body;
+
+  if (!phone || !otp) {
+    res.status(400);
+    throw new Error('Please provide phone and OTP');
+  }
+
+  // Mock verification
+  if (otp !== '123456') {
+    res.status(401);
+    throw new Error('Invalid OTP');
+  }
+
+  let user = await User.findOne({ phone });
+
+  if (!user) {
+    if (!name || !email) {
+      res.status(400);
+      throw new Error('Name and email are required for first-time OTP login');
+    }
+    // Create new user via OTP
+    user = await User.create({
+      name,
+      email,
+      phone,
+      role: role || 'user',
+      authProvider: 'phone',
+    });
+  }
+
+  const token = generateToken(user._id, user.role);
+  res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    token,
+  });
+});
+
 module.exports = {
   registerUser,
   loginUser,
   getMe,
   updateLocation,
+  googleAuth,
+  sendOtp,
+  verifyOtp,
 };

@@ -8,9 +8,9 @@ const steps = [
     num: "01",
     title: "Find Shops",
     description: "Discover verified local sellers around your exact location. Compare prices instantly.",
-    color: "from-pink-500 to-rose-500",
+    color: "from-teal-400 to-emerald-400",
     svg: (
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 stroke-white/80 stroke-[3] stroke-linecap-round stroke-linejoin-round">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 stroke-teal-400 stroke-[3] stroke-linecap-round stroke-linejoin-round">
         <motion.path 
           initial={{ pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
@@ -34,7 +34,7 @@ const steps = [
     description: "Browse products and add them to your cart. Request 'Pay Later' if needed.",
     color: "from-purple-500 to-indigo-500",
     svg: (
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 stroke-white/80 stroke-[3] stroke-linecap-round stroke-linejoin-round">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 stroke-teal-400 stroke-[3] stroke-linecap-round stroke-linejoin-round">
         <motion.path 
           initial={{ pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
@@ -65,7 +65,7 @@ const steps = [
     description: "Pick it up instantly or get it delivered. Track your order in real-time.",
     color: "from-blue-500 to-cyan-500",
     svg: (
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 stroke-white/80 stroke-[3] stroke-linecap-round stroke-linejoin-round">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 stroke-teal-400 stroke-[3] stroke-linecap-round stroke-linejoin-round">
         <motion.rect 
           initial={{ pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
@@ -112,16 +112,16 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-5xl md:text-7xl font-black mb-6">How It Works</h2>
-          <p className="text-xl text-white/60 max-w-2xl mx-auto font-medium">
+          <p className="text-xl text-zinc-600 dark:text-white/60 max-w-2xl mx-auto font-medium">
             A frictionless journey from discovery to delivery, engineered for speed and simplicity.
           </p>
         </motion.div>
 
         <div className="relative">
           {/* Desktop Connecting Line */}
-          <div className="hidden lg:block absolute top-[120px] left-[15%] right-[15%] h-[2px] border-t-2 border-dashed border-white/20 z-0">
+          <div className="hidden lg:block absolute top-[120px] left-[15%] right-[15%] h-[2px] border-t-2 border-dashed border-zinc-300 dark:border-white/20 z-0">
             <motion.div 
-              className="absolute top-[-2px] left-0 h-[2px] bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500"
+              className="absolute top-[-2px] left-0 h-[2px] bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400"
               style={{ width: lineHeight }}
             />
           </div>
@@ -138,14 +138,14 @@ export default function HowItWorks() {
               >
                 <div className="w-full flex justify-center mb-8 relative">
                   <div className={`absolute inset-0 bg-gradient-to-br ${step.color} rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 w-48 h-48 mx-auto`}></div>
-                  <div className="w-48 h-48 rounded-full bg-black/50 border border-white/10 backdrop-blur-md flex items-center justify-center relative z-10 shadow-2xl overflow-hidden group-hover:border-white/30 transition-colors">
+                  <div className="w-48 h-48 rounded-full bg-zinc-800/80 border border-white/10 backdrop-blur-md flex items-center justify-center relative z-10 shadow-2xl overflow-hidden group-hover:border-white/20 transition-colors">
                     {step.svg}
-                    <div className="absolute top-4 right-6 text-5xl font-black text-white/5">{step.num}</div>
+                    <div className="absolute top-4 right-6 text-5xl font-black text-white/10">{step.num}</div>
                   </div>
                 </div>
                 
-                <h3 className="text-3xl font-bold mb-4 text-white tracking-tight">{step.title}</h3>
-                <p className="text-white/60 leading-relaxed max-w-[280px]">
+                <h3 className="text-3xl font-bold mb-4 text-zinc-900 dark:text-white tracking-tight">{step.title}</h3>
+                <p className="text-zinc-600 dark:text-white/60 leading-relaxed max-w-[280px]">
                   {step.description}
                 </p>
               </motion.div>

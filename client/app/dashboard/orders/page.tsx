@@ -87,7 +87,7 @@ export default function SellerOrdersPage() {
     <div className="p-6 md:p-10 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-2">Order Management</h1>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white mb-2">Order Management</h1>
           <p className="text-muted-foreground">Accept, decline, and track your incoming orders.</p>
         </div>
         <div className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-500 font-bold">
@@ -96,7 +96,7 @@ export default function SellerOrdersPage() {
       </div>
 
       {orders.length === 0 ? (
-        <div className="text-center py-20 bg-card/40 border border-white/5 rounded-3xl backdrop-blur-sm">
+        <div className="text-center py-20 bg-card/40 border border-zinc-200 dark:border-white/10 rounded-3xl backdrop-blur-sm">
           <Package className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-30" />
           <h3 className="text-2xl font-bold mb-2">No orders yet</h3>
           <p className="text-muted-foreground">When customers buy your products, they will appear here.</p>
@@ -110,7 +110,7 @@ export default function SellerOrdersPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.05 }}
               className={`bg-card/40 backdrop-blur-md border rounded-2xl p-6 transition-all ${
-                order.status === 'pending' ? 'border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.05)]' : 'border-white/5'
+                order.status === 'pending' ? 'border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.05)]' : 'border-zinc-200 dark:border-white/10'
               }`}
             >
               <div className="flex flex-col lg:flex-row gap-6 justify-between">
@@ -120,7 +120,7 @@ export default function SellerOrdersPage() {
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-sm text-muted-foreground">#{order._id.slice(-8).toUpperCase()}</span>
                     <span className="text-sm text-muted-foreground">•</span>
-                    <span className="text-sm text-white font-medium">{new Date(order.createdAt).toLocaleString()}</span>
+                    <span className="text-sm text-zinc-900 dark:text-white font-medium">{new Date(order.createdAt).toLocaleString()}</span>
                     <span className="text-sm text-muted-foreground">•</span>
                     <span className={`px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1
                       ${order.status === 'pending' ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : ''}
@@ -138,16 +138,16 @@ export default function SellerOrdersPage() {
                   <div className="space-y-3 mb-6">
                     {order.products.map((item: any, i: number) => (
                       <div key={i} className="flex justify-between items-center text-sm">
-                        <span className="text-white"><span className="text-muted-foreground mr-2">{item.qty}x</span> {item.name}</span>
+                        <span className="text-zinc-900 dark:text-white"><span className="text-muted-foreground mr-2">{item.qty}x</span> {item.name}</span>
                         <span className="text-muted-foreground">${(item.price * item.qty).toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                  <div className="flex items-center justify-between pt-4 border-t border-zinc-200 dark:border-white/10">
                     <div>
                       <p className="text-sm text-muted-foreground mb-0.5">Customer</p>
-                      <p className="font-medium text-white">{order.userId?.name || "Guest User"}</p>
+                      <p className="font-medium text-zinc-900 dark:text-white">{order.userId?.name || "Guest User"}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-muted-foreground mb-0.5">Total</p>
@@ -161,7 +161,7 @@ export default function SellerOrdersPage() {
                   <div className="flex lg:flex-col gap-3 lg:w-48 shrink-0 justify-end">
                     <button 
                       onClick={() => updateStatus(order._id, 'accepted')}
-                      className="flex-1 lg:flex-none flex items-center justify-center gap-2 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-colors"
+                      className="flex-1 lg:flex-none flex items-center justify-center gap-2 py-3 bg-emerald-500 hover:bg-emerald-600 text-zinc-900 dark:text-white font-bold rounded-xl transition-colors"
                     >
                       <Check className="w-4 h-4" /> Accept
                     </button>

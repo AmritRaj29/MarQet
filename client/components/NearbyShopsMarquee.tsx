@@ -52,7 +52,7 @@ export default function NearbyShopsMarquee() {
             Discover premium local sellers with the highest ratings in your area.
           </p>
         </div>
-        <Link href="/shops" className="hidden md:flex items-center gap-2 text-primary hover:text-white transition-colors font-medium">
+        <Link href="/shops" className="hidden md:flex items-center gap-2 text-primary hover:text-zinc-900 dark:text-white transition-colors font-medium">
           View all <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
@@ -70,7 +70,7 @@ export default function NearbyShopsMarquee() {
         >
           {displayShops.map((shop, index) => (
             <Link href={`/shops/${shop._id}`} key={`${shop._id}-${index}`}>
-              <div className="w-[350px] group relative border border-white/10 bg-card/60 backdrop-blur-md rounded-3xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_10px_30px_rgba(139,92,246,0.15)] flex flex-col shrink-0">
+              <div className="w-[350px] group relative border border-zinc-200 dark:border-white/10 bg-card/60 backdrop-blur-md rounded-3xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_10px_30px_rgba(139,92,246,0.15)] flex flex-col shrink-0">
                 <div className="h-40 relative overflow-hidden bg-secondary/80">
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent z-10"></div>
                   {shop.banner ? (
@@ -86,7 +86,7 @@ export default function NearbyShopsMarquee() {
                   )}
                   
                   <div className="absolute top-3 right-3 z-20">
-                    <span className="px-2.5 py-1 bg-background/80 backdrop-blur text-white text-xs font-bold rounded-full shadow-md border border-white/10 flex items-center gap-1">
+                    <span className="px-2.5 py-1 bg-background/80 backdrop-blur text-zinc-900 dark:text-white text-xs font-bold rounded-full shadow-md border border-zinc-200 dark:border-white/10 flex items-center gap-1">
                       <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
                       {shop.rating?.toFixed(1) || "New"}
                     </span>
@@ -100,7 +100,7 @@ export default function NearbyShopsMarquee() {
                 </div>
                 
                 <div className="p-5 pt-8 flex-1 flex flex-col">
-                  <h3 className="font-bold text-xl text-white mb-1 truncate">{shop.shopName}</h3>
+                  <h3 className="font-bold text-xl text-zinc-900 dark:text-white mb-1 truncate">{shop.shopName}</h3>
                   <div className="flex items-center gap-1.5 text-muted-foreground text-sm mb-4">
                     <MapPin className="w-3.5 h-3.5" />
                     {shop.city || "Local"}
@@ -116,7 +116,7 @@ export default function NearbyShopsMarquee() {
       </div>
       
       <div className="container px-4 md:hidden mt-6 text-center">
-        <Link href="/shops" className="inline-flex items-center gap-2 text-primary hover:text-white transition-colors font-medium">
+        <Link href="/shops" className="inline-flex items-center gap-2 text-primary hover:text-zinc-900 dark:text-white transition-colors font-medium">
           View all locations <ArrowRight className="w-4 h-4" />
         </Link>
       </div>

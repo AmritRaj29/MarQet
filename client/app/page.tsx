@@ -2,9 +2,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MarqueeBand from "@/components/MarqueeBand";
 import FeatureShowcase from "@/components/FeatureShowcase";
-import HowItWorks from "@/components/HowItWorks";
 import LiveStats from "@/components/LiveStats";
-import ProductShowcase from "@/components/ProductShowcase";
+import HowItWorks from "@/components/HowItWorks";
 import ForSellers from "@/components/ForSellers";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
@@ -21,7 +20,6 @@ export default function Home() {
         <FeatureShowcase />
         <HowItWorks />
         <LiveStats />
-        <ProductShowcase />
         <ForSellers />
         <Testimonials />
         <FAQ />
